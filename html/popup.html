@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css?family=Lobster:400|Raleway:300,400,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+
+<body>
+    <div class="popup">
+        <!-- <span>Top header with logo and name.</span> -->
+        <p class="heading" style="margin-bottom: 10px; margin-top: 0;">
+            <img class="trinayanIcon" src="../img/icon48.png" alt="">
+            <span class="yellow">Tri</span><span class="blue">Nayan</span>
+        </p>
+        <p style="text-transform: uppercase; text-align: center; color: gray; margin-top: 0; padding-top: 0;">A mission for a million Vision</p>
+        <a href="home.html" style="text-decoration: none; background: yellow; color: red; padding: 5px 20px;font-weight: bolder;"><i class="fa fa-arrow-left"></i> Back</a>
+        
+        <!-- <span>Toggle between Dark and light theme using the button below.</span> -->
+        <div class="section1">
+            <h3>Dark/light theme toggle</h3>
+            <div class="button">
+                <div class="half" style="position: absolute; left: -20px;">On</div>
+                <div class="half" style="position: absolute; right: -20px; text-align: right;">Off</div>
+                <div class="circle"></div>
+            </div>
+        </div>
+
+        <!-- <span>Change color theme to one of the given color schemes.</span> -->
+        <div class="section2">
+            <h3>Change to preferred color themes</h3>
+            <label class="container">Normal
+                <input type="radio" checked="checked" name="radio">
+                <span class="checkmark"></span>
+            </label>
+            <label class="container">Increased Contrast
+                <input type="radio" name="radio">
+                <span class="checkmark"></span>
+            </label>
+            <label class="container">Greyscale
+                <input type="radio" name="radio">
+                <span class="checkmark"></span>
+            </label>
+            <label class="container">Inverted Colour
+                <input type="radio" name="radio">
+                <span class="checkmark"></span>
+            </label>
+            <label class="container">Inverted Greyscale
+                <input type="radio" name="radio">
+                <span class="checkmark"></span>
+            </label>
+            <label class="container">Yellow on Black
+                <input type="radio" name="radio">
+                <span class="checkmark"></span>
+            </label>
+        </div>
+
+        <!-- <span>Change color theme to one of the given color schemes.</span> -->
+        <div class="section3">
+            <h3>Custom background & text color</h3>
+            <input type="color" value="#e86c5c" id="backgroundColor" style="cursor: pointer;">
+            <label for="backgroundColor" style="font-size: 12px;"> : Background Color</label>
+            <br>
+            <input type="color" value="#588BE4" id="textColor" style="cursor: pointer;">
+            <label for="textColor" style="font-size: 12px;"> : Text Color</label>
+        </div>
+        
+        <!-- <span>Change brightness of the page.</span> -->
+        <div class="section4">
+            <h3>Brightness</h3>
+            <input style="cursor: pointer;" id="rangeInput" type="range" name="vol" min="0" max="100">
+        </div>
+        
+        <!-- <span>Change contrast of the page.</span> -->
+        <div class="section5">
+            <h3>Contrast</h3>
+            <input style="cursor: pointer;" id="rangeInput" type="range" name="vol" min="0" max="100">
+        </div>
+        
+        <!-- <span>Change text size of the page.</span> -->
+        <div class="section6">
+            <h3>Customize text size</h3>
+            <button style="cursor: pointer; height: 30px; width: 30px; border: 2px solid white; background: #e86c5c; margin-left: 20px; font-size: 20px; color: white;">-</button>
+            <button style="cursor: pointer; height: 30px; width: 30px; border: 2px solid white; background: #e86c5c;  font-size: 20px; color: white;">+</button>
+        </div>
+        
+        <!-- <span>Change font style of the page.</span> -->
+        <div class="section6">
+            <h3>Change Font style</h3>
+            <select name="cars" id="cars" style="cursor: pointer; height: 25px; width: 120px; outline: none; padding: 0; margin-left: 30px;">
+                <option value="aphont">APHont</option>
+                <option value="arial">Arial</option>
+                <option value="bebasNeue">Bebas Neue</option>
+                <option value="calibri">Calibri</option>
+                <option value="comicSans">Comic Sans</option>
+                <option value="helvetica">Helvetica</option>
+                <option value="lavanderia">Lavanderia</option>
+                <option value="openDyslexic">OpenDyslexic</option>
+            </select>
+        </div>
+    </div>
+
+
+    <script src="./js/popup.js"></script>
+    <script>
+
+    </script>
+
+</body>
+
+</html>

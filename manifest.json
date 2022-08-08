@@ -1,0 +1,27 @@
+{
+    "name": "TriNayan",
+    "version": "1.0.0",
+    "manifest_version": 2,
+    "icons": {
+        "16": "./img/icon16.png",
+        "32": "./img/icon32.png",
+        "48": "./img/icon48.png",
+        "128": "./img/icon128.png"
+      },
+    "description": "Accessing visual information (written information) by persons with visual disability",
+    "background": {
+        "scripts": [
+            "./js/popup.js"
+        ],
+        "persistent": true
+    },
+    "browser_action": {
+        "default_title": "TriNayan",
+        "default_popup": "html/home.html"
+    },
+    "permissions": [
+        "https://*/*",
+        "http://*/*",
+        "tabs"
+    ]
+}

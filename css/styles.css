@@ -1,0 +1,260 @@
+.popup {
+    min-width: 320px;
+    min-height: 188px;
+    background: #FFFFFF;
+    /* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
+    border-radius: 10px;
+    padding: 0.8rem;
+}
+
+h3 {
+    margin: 0;
+    padding: 10px 0px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.heading {
+    font-size: 1.5rem;
+    font-family: "Lobster";
+    text-align: center;
+    position: relative;
+}
+
+.yellow {
+    color: #e86c5c;
+    padding-left: 65px;
+}
+
+.blue {
+    color: #588BE4;
+}
+
+p {
+    font-family: "Raleway", sans-serif;
+    font-size: 0.75rem;
+}
+
+.button {
+    background-color: #e86c5c;
+    position: relative;
+    height: 1rem;
+    width: 3rem;
+    border-radius: 25px;
+    transition: 0.5s;
+    font-family: "Raleway", sans-serif;
+    margin-left: 30px;
+    margin-top: 10px;
+}
+
+.half {
+    position: absolute;
+    width: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.circle {
+    position: absolute;
+    top: -5px;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    background-color: #ad3727;
+    pointer-events: none;
+    transition: 0.5s;
+
+}
+
+ol {
+    margin: 0;
+    padding: 5px 15px;
+}
+
+.trinayanIcon {
+    height: 40px;
+    width: 40px;
+    bottom: -5px;
+    left: 30%;
+    position: absolute;
+}
+
+.section1, .section4, .section5, .section6, .section7 {
+    display: flex;
+}
+
+/* The container */
+.container {
+    display: block;
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 12px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 15px;
+    width: 15px;
+    background-color: #eee;
+    border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input~.checkmark {
+    background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.container input:checked~.checkmark {
+    background-color: #588BE4;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.container input:checked~.checkmark:after {
+    display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.container .checkmark:after {
+    top: 5px;
+    left: 5px;
+    width: 4.5px;
+    height: 4.5px;
+    border-radius: 50%;
+    background: white;
+}
+
+input[type="color"] {
+    -webkit-appearance: none;
+    border: none;
+    width: 40px;
+    height: 20px;
+    margin: 5px;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0px;
+}
+
+input[type="color"]::-webkit-color-swatch {
+    border: none;
+}
+
+.feature {
+    border: 1px solid rgb(199, 199, 199);
+    padding: 15px 20px 10px;
+    border-radius: 10px;
+    margin: 10px 0;
+}
+
+.selfThemeButton {
+    background-color: #e86c5c;
+    position: relative;
+    height: 1rem;
+    width: 3rem;
+    border-radius: 25px;
+    transition: 0.5s;
+    font-family: "Raleway", sans-serif;
+    margin-left: 30px;
+    margin-top: 10px;
+}
+
+.selfHalf {
+    position: absolute;
+    width: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.selfCircle {
+    position: absolute;
+    top: -5px;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    background-color: #ad3727;
+    pointer-events: none;
+    transition: 0.5s;
+
+}
+
+.section0 {
+    display: flex;
+}
+
+@keyframes transformToBlue {
+    0% {
+        background-color: #e86c5c;
+    }
+
+    100% {
+        background-color: #8ABFF0;
+    }
+}
+
+@keyframes transformToYellow {
+    0% {
+        background-color: #8ABFF0;
+    }
+
+    100% {
+        background-color: #e86c5c;
+    }
+}
+
+@keyframes moveCircleRight {
+    0% {
+        left: 0;
+        transform: translateX(0);
+        background-color: #ad3727;
+    }
+
+    100% {
+        left: 100%;
+        transform: translateX(-100%);
+        background-color: #588BE4;
+    }
+}
+
+@keyframes moveCircleLeft {
+    0% {
+        left: 100%;
+        transform: translateX(-100%);
+        background-color: #588BE4;
+    }
+
+    100% {
+        left: 0;
+        transform: translateX(0);
+        background-color: #ad3727;
+    }
+}

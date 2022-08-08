@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval' http://cdnjs.cloudflare.com ">
     <title>Document</title>
     <link href="https://fonts.googleapis.com/css?family=Lobster:400|Raleway:300,400,500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -14,15 +15,15 @@
 <body>
     <div class="popup">
         <!-- <span>Top header with logo and name.</span> -->
-        <p class="heading" style="margin-bottom: 10px; margin-top: 0;">
+        <!-- <p class="heading" style="margin-bottom: 10px; margin-top: 0;">
             <img class="trinayanIcon" src="../img/icon48.png" alt="">
             <span class="yellow">Tri</span><span class="blue">Nayan</span>
         </p>
-        <p style="text-transform: uppercase; text-align: center; color: gray; margin-top: 0; padding-top: 0;">A mission for a million Vision</p>
+        <p style="text-transform: uppercase; text-align: center; color: gray; margin-top: 0; padding-top: 0;">A mission for a million Vision</p> -->
         <a href="home.html" style="text-decoration: none; background: yellow; color: red; padding: 5px 20px;font-weight: bolder;"><i class="fa fa-arrow-left"></i> Back</a>
         
         <!-- <span>Toggle between Dark and light theme using the button below.</span> -->
-        <div class="section1">
+        <div class="section1" style="margin-top: 10px;">
             <h3>Dark/light theme toggle</h3>
             <div class="button">
                 <div class="half" style="position: absolute; left: -20px;">On</div>
@@ -34,29 +35,35 @@
         <!-- <span>Change color theme to one of the given color schemes.</span> -->
         <div class="section2">
             <h3>Change to preferred color themes</h3>
-            <label class="container">Normal
-                <input type="radio" checked="checked" name="radio">
+            <label class="container" for="normal">
+                <input type="radio" id="normal" name="radio" checked/>
                 <span class="checkmark"></span>
+                Normal
             </label>
-            <label class="container">Increased Contrast
-                <input type="radio" name="radio">
+            <label class="container" for="grayscale">
+                <input type="radio" id="grayscale" name="radio"/>
                 <span class="checkmark"></span>
+                Greyscale
             </label>
-            <label class="container">Greyscale
-                <input type="radio" name="radio">
+            <label class="container" for="invertedcolour">
+                <input type="radio" id="invertedcolour" name="radio"/>
                 <span class="checkmark"></span>
+                Inverted Colour
             </label>
-            <label class="container">Inverted Colour
-                <input type="radio" name="radio">
+            <label class="container" for="increasedcontrast">
+                <input type="radio" id="increasedcontrast" name="radio"/>
                 <span class="checkmark"></span>
+                Increased Contrast
             </label>
-            <label class="container">Inverted Greyscale
-                <input type="radio" name="radio">
+            <label class="container" for="invertedgreyscale">
+                <input type="radio" id="invertedgreyscale" name="radio"/>
                 <span class="checkmark"></span>
+                Inverted Greyscale
             </label>
-            <label class="container">Yellow on Black
-                <input type="radio" name="radio">
+            <label class="container" for="yellowonblack">
+                <input type="radio" id="yellowonblack" name="radio"/>
                 <span class="checkmark"></span>
+                Yellow on Black
             </label>
         </div>
 
@@ -64,35 +71,28 @@
         <div class="section3">
             <h3>Custom background & text color</h3>
             <input type="color" value="#e86c5c" id="backgroundColor" style="cursor: pointer;">
-            <label for="backgroundColor" style="font-size: 12px;"> : Background Color</label>
+            <label for="backgroundColor"> : Background Color</label>
             <br>
             <input type="color" value="#588BE4" id="textColor" style="cursor: pointer;">
-            <label for="textColor" style="font-size: 12px;"> : Text Color</label>
-        </div>
-        
-        <!-- <span>Change brightness of the page.</span> -->
-        <div class="section4">
-            <h3>Brightness</h3>
-            <input style="cursor: pointer;" id="rangeInput" type="range" name="vol" min="0" max="100">
+            <label for="textColor"> : Text Color</label>
         </div>
         
         <!-- <span>Change contrast of the page.</span> -->
-        <div class="section5">
+        <div class="section4">
             <h3>Contrast</h3>
-            <input style="cursor: pointer;" id="rangeInput" type="range" name="vol" min="0" max="100">
+            <input style="margin-left: 30px;" id="brightness-range" type="range" name="vol" min="0" max="100" value="50">
         </div>
         
-        <!-- <span>Change text size of the page.</span> -->
-        <div class="section6">
-            <h3>Customize text size</h3>
-            <button style="cursor: pointer; height: 30px; width: 30px; border: 2px solid white; background: #e86c5c; margin-left: 20px; font-size: 20px; color: white;">-</button>
-            <button style="cursor: pointer; height: 30px; width: 30px; border: 2px solid white; background: #e86c5c;  font-size: 20px; color: white;">+</button>
+        <!-- <span>Change brightness of the page.</span> -->
+        <div class="section5">
+            <h3>Brightness</h3>
+            <input style="margin-left: 15px;" id="brightness-range" type="range" name="vol" min="0" max="100" value="50">
         </div>
         
         <!-- <span>Change font style of the page.</span> -->
         <div class="section6">
             <h3>Change Font style</h3>
-            <select name="cars" id="cars" style="cursor: pointer; height: 25px; width: 120px; outline: none; padding: 0; margin-left: 30px;">
+            <select name="fonts" id="fonts" style="cursor: pointer; height: 25px; width: 120px; outline: none; padding: 0; margin-left: 30px;">
                 <option value="aphont">APHont</option>
                 <option value="arial">Arial</option>
                 <option value="bebasNeue">Bebas Neue</option>
@@ -103,14 +103,33 @@
                 <option value="openDyslexic">OpenDyslexic</option>
             </select>
         </div>
+        
+        <!-- <span>Change text size of the page.</span> -->
+        <div class="section6">
+            <h3>Customize text size</h3>
+            <button style="cursor: pointer; height: 30px; width: 30px; border: 2px solid white; background: #e86c5c; margin-left: 20px; font-size: 20px; color: white;">-</button>
+            <button style="cursor: pointer; height: 30px; width: 30px; border: 2px solid white; background: #e86c5c;  font-size: 20px; color: white;">+</button>
+        </div>
+
+        <hr>
+
+        <div class="section0">
+            <div class="selfThemeButton" style="margin: 20px 30px 10px;">
+                <div class="selfHalf" style="position: absolute; left: -25px;">On</div>
+                <div class="selfHalf" style="position: absolute; right: -25px; text-align: right;">Off</div>
+                <div class="selfCircle"></div>
+            </div>
+            <div class="selfTextButton" style="margin-left: auto; margin-top: 10px; margin-right: 5px;">
+                <button class="decreasebtn"
+                    style="cursor: pointer; height: 30px; width: 30px; border: 2px solid white; background: #e86c5c; margin-left: 20px; font-size: 20px; color: white;">-</button>
+                <button class="increasebtn"
+                    style="cursor: pointer; height: 30px; width: 30px; border: 2px solid white; background: #e86c5c;  font-size: 20px; color: white;">+</button>
+            </div>
+        </div>
     </div>
 
-
-    <script src="./js/popup.js"></script>
-    <script>
-
-    </script>
-
+    <script src="../popup.js"></script>
+    <script src="../home.js"></script>
 </body>
 
 </html>

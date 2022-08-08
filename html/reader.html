@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval' http://cdnjs.cloudflare.com ">
     <title>Document</title>
     <link href="https://fonts.googleapis.com/css?family=Lobster:400|Raleway:300,400,500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -21,13 +22,13 @@
     <div class="popup">
         
         <!-- <span>Top header with logo and name.</span> -->
-        <p class="heading" style="margin-bottom: 10px; margin-top: 0;">
+        <!-- <p class="heading" style="margin-bottom: 10px; margin-top: 0;">
             <img class="trinayanIcon" src="../img/icon48.png" alt="">
             <span class="yellow">Tri</span><span class="blue">Nayan</span>
         </p>
         <p style="text-transform: uppercase; text-align: center; color: gray; margin-top: 0; padding-top: 0;">A mission
             for
-            a million Vision</p>
+            a million Vision</p> -->
         
         <a href="home.html" style="text-decoration: none; background: yellow; color: red; padding: 5px 20px;font-weight: bolder;"><i class="fa fa-arrow-left"></i> Back</a>
         <div class="feature">
@@ -42,7 +43,21 @@
                 <p style="color: black;">The content will be split according to the web page sections and the user can listen to specific parts of it.</p>
             </div>
         </div>
+        <div class="section0">
+            <div class="selfThemeButton" style="margin: 20px 30px 10px;">
+                <div class="selfHalf" style="position: absolute; left: -25px;">On</div>
+                <div class="selfHalf" style="position: absolute; right: -25px; text-align: right;">Off</div>
+                <div class="selfCircle"></div>
+            </div>
+            <div class="selfTextButton" style="margin-left: auto; margin-top: 10px; margin-right: 5px;">
+                <button class="decreasebtn"
+                    style="cursor: pointer; height: 30px; width: 30px; border: 2px solid white; background: #e86c5c; margin-left: 20px; font-size: 20px; color: white;">-</button>
+                <button class="increasebtn"
+                    style="cursor: pointer; height: 30px; width: 30px; border: 2px solid white; background: #e86c5c;  font-size: 20px; color: white;">+</button>
+            </div>
+        </div>
     </div>
+    <script src="../home.js"></script>
 </body>
 
 </html>

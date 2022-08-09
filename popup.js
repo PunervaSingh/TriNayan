@@ -58,10 +58,6 @@ if (document.querySelector(".popup")) {
             file: 'yellowonblack.js'
         })
     })
-    var fonts = document.getElementById("fonts");
-    fonts.addEventListener("click", () => {
-        document.body.innerText.style.fontFamily = "arial";
-    })
 
     const btnIncrease = document.querySelector(".btnincrease");
     btnIncrease.addEventListener("click", () => {
@@ -77,5 +73,36 @@ if (document.querySelector(".popup")) {
         chrome.tabs.executeScript({
             file: 'decreaseFont.js'
         })
+    })
+
+    var fontStyle = document.getElementById("fonts");
+    fontStyle.addEventListener("change", () => {
+        var op = fontStyle.options[fontStyle.selectedIndex].text;
+        if(op === 'Arial') {
+            chrome.tabs.executeScript({
+                file: 'arial.js'
+            })
+        }
+        else if(op === 'Rockwell') {
+            chrome.tabs.executeScript({
+                file: 'rockwell.js'
+            })
+        }
+        else if(op === 'Tahoma') {
+            chrome.tabs.executeScript({
+                file: 'tahoma.js'
+            })
+        }
+        else if(op === 'Times New Roman') {
+            chrome.tabs.executeScript({
+                file: 'times.js'
+            })
+        }
+        else if(op === 'Verdana') {
+            chrome.tabs.executeScript({
+                file: 'verdana.js'
+            })
+        }
+        // document.querySelector("body").style.fontFamily = fontStyle.options[fontStyle.selectedIndex].text;
     })
 }

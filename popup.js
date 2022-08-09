@@ -62,4 +62,20 @@ if (document.querySelector(".popup")) {
     fonts.addEventListener("click", () => {
         document.body.innerText.style.fontFamily = "arial";
     })
+
+    const btnIncrease = document.querySelector(".btnincrease");
+    btnIncrease.addEventListener("click", () => {
+        // document.querySelector("body").style.fontSize= "35px";
+        chrome.tabs.executeScript({
+            file: 'increaseFont.js'
+        })
+    })
+    
+    const btnDecrease = document.querySelector(".btndecrease");
+    btnDecrease.addEventListener("click", () => {
+        // document.querySelector("body").style.fontSize= "35px";
+        chrome.tabs.executeScript({
+            file: 'decreaseFont.js'
+        })
+    })
 }

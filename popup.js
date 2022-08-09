@@ -59,50 +59,83 @@ if (document.querySelector(".popup")) {
         })
     })
 
-    const btnIncrease = document.querySelector(".btnincrease");
-    btnIncrease.addEventListener("click", () => {
-        // document.querySelector("body").style.fontSize= "35px";
-        chrome.tabs.executeScript({
-            file: 'increaseFont.js'
-        })
-    })
-    
-    const btnDecrease = document.querySelector(".btndecrease");
-    btnDecrease.addEventListener("click", () => {
-        // document.querySelector("body").style.fontSize= "35px";
-        chrome.tabs.executeScript({
-            file: 'decreaseFont.js'
-        })
-    })
+    // const btnIncrease = document.querySelector(".btnincrease");
+    // btnIncrease.addEventListener("click", () => {
+    //     // document.querySelector("body").style.fontSize= "35px";
+    //     chrome.tabs.executeScript({
+    //         file: 'increaseFont.js'
+    //     })
+    // })
+
+    // const btnDecrease = document.querySelector(".btndecrease");
+    // btnDecrease.addEventListener("click", () => {
+    //     // document.querySelector("body").style.fontSize= "35px";
+    //     chrome.tabs.executeScript({
+    //         file: 'decreaseFont.js'
+    //     })
+    // })
 
     var fontStyle = document.getElementById("fonts");
     fontStyle.addEventListener("change", () => {
         var op = fontStyle.options[fontStyle.selectedIndex].text;
-        if(op === 'Arial') {
+        if (op === 'Arial') {
             chrome.tabs.executeScript({
                 file: 'arial.js'
             })
         }
-        else if(op === 'Rockwell') {
+        else if (op === 'Rockwell') {
             chrome.tabs.executeScript({
                 file: 'rockwell.js'
             })
         }
-        else if(op === 'Tahoma') {
+        else if (op === 'Tahoma') {
             chrome.tabs.executeScript({
                 file: 'tahoma.js'
             })
         }
-        else if(op === 'Times New Roman') {
+        else if (op === 'Times New Roman') {
             chrome.tabs.executeScript({
                 file: 'times.js'
             })
         }
-        else if(op === 'Verdana') {
+        else if (op === 'Verdana') {
             chrome.tabs.executeScript({
                 file: 'verdana.js'
             })
         }
         // document.querySelector("body").style.fontFamily = fontStyle.options[fontStyle.selectedIndex].text;
+    })
+
+    var brightnessRange = document.getElementById("brightnessRange");
+    brightnessRange.addEventListener("change", () => {
+        var bval = brightnessRange.value;
+        let st = bval.toString();
+        chrome.tabs.executeScript({
+            code: "var config = " + st + ";"
+        }, function() {
+            chrome.tabs.executeScript({file: 'brightness.js'});
+        });
+    })
+    
+    var contrastRange = document.getElementById("contrastRange");
+    contrastRange.addEventListener("change", () => {
+        var cval = contrastRange.value;
+        let sty = cval.toString();
+        chrome.tabs.executeScript({
+            code: "var config = " + sty + ";"
+        }, function() {
+            chrome.tabs.executeScript({file: 'contrast.js'});
+        });
+    })
+    
+    var fontRange = document.getElementById("fontRange");
+    fontRange.addEventListener("change", () => {
+        var fval = fontRange.value;
+        let si = fval.toString();
+        chrome.tabs.executeScript({
+            code: "var config = " + si + ";"
+        }, function() {
+            chrome.tabs.executeScript({file: 'font.js'});
+        });
     })
 }

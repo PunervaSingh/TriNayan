@@ -10,6 +10,9 @@
     <link href="https://fonts.googleapis.com/css?family=Lobster:400|Raleway:300,400,500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -80,35 +83,34 @@
         <!-- <span>Change contrast of the page.</span> -->
         <div class="section4">
             <h3>Contrast</h3>
-            <input style="margin-left: 30px;" id="brightness-range" type="range" name="vol" min="0" max="100" value="50">
+            <input style="margin-left: 30px;" id="contrastRange" type="range" min="0" max="150" value="100">
         </div>
         
         <!-- <span>Change brightness of the page.</span> -->
         <div class="section5">
             <h3>Brightness</h3>
-            <input style="margin-left: 15px;" id="brightness-range" type="range" name="vol" min="0" max="100" value="50">
+            <input style="margin-left: 15px;" id="brightnessRange" type="range" min="0" max="150" value="100">
+            <!-- <p id="brightnessVal">100</p> -->
         </div>
         
         <!-- <span>Change font style of the page.</span> -->
         <div class="section6">
             <h3>Change Font style</h3>
-            <select name="fonts" id="fonts" style="cursor: pointer; height: 25px; width: 120px; outline: none; padding: 0; margin-left: 30px;">
-                <option value="aphont">APHont</option>
-                <option value="arial">Arial</option>
-                <option value="bebasNeue">Bebas Neue</option>
-                <option value="calibri">Calibri</option>
-                <option value="comicSans">Comic Sans</option>
-                <option value="helvetica">Helvetica</option>
-                <option value="lavanderia">Lavanderia</option>
-                <option value="openDyslexic">OpenDyslexic</option>
+            <select for="fontSt" name="fonts" id="fonts" style="cursor: pointer; height: 25px; width: 120px; outline: none; padding: 0; margin-left: 30px;">
+                <option value="Arial">Arial</option>
+                <option value="Rockwell">Rockwell</option>
+                <option value="Tahoma">Tahoma</option>
+                <option value="Times New Roman">Times New Roman</option>
+                <option value="Verdana">Verdana</option>
             </select>
         </div>
         
         <!-- <span>Change text size of the page.</span> -->
         <div class="section6">
             <h3>Customize text size</h3>
-            <button class="btndecrease" style="cursor: pointer; height: 30px; width: 30px; border: 2px solid white; background: #e86c5c; margin-left: 20px; font-size: 20px; color: white;">-</button>
-            <button class="btnincrease" style="cursor: pointer; height: 30px; width: 30px; border: 2px solid white; background: #e86c5c;  font-size: 20px; color: white;">+</button>
+            <input style="margin-left: 15px;" id="fontRange" type="range" min="10" max="50" value="15">
+            <!-- <button class="btndecrease" style="cursor: pointer; height: 30px; width: 30px; border: 2px solid white; background: #e86c5c; margin-left: 20px; font-size: 20px; color: white;">-</button>
+            <button class="btnincrease" style="cursor: pointer; height: 30px; width: 30px; border: 2px solid white; background: #e86c5c;  font-size: 20px; color: white;">+</button> -->
         </div>
 
         <hr>

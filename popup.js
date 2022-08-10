@@ -10,7 +10,7 @@ if (document.querySelector(".popup")) {
             button.style.animation = "transformToBlue 0.5s ease-in-out 0s forwards"
             circle.style.animation = "moveCircleRight 0.5s ease-in-out 0s forwards"
             chrome.tabs.executeScript({
-                file: './js/appOn.js'
+                file: './scripts/appOn.js'
             })
         }
         else {
@@ -18,44 +18,44 @@ if (document.querySelector(".popup")) {
             button.style.animation = "transformToYellow 0.5s ease-in-out 0s forwards"
             circle.style.animation = "moveCircleLeft 0.5s ease-in-out 0s forwards"
             chrome.tabs.executeScript({
-                file: './js/appOff.js'
+                file: './scripts/appOff.js'
             })
         }
     })
     var normal = document.getElementById("normal");
     normal.addEventListener("click", () => {
         chrome.tabs.executeScript({
-            file: './js/normal.js'
+            file: './scripts/normal.js'
         })
     })
     var grayscale = document.getElementById("grayscale");
     grayscale.addEventListener("click", () => {
         chrome.tabs.executeScript({
-            file: './js/grayScale.js'
+            file: './scripts/grayScale.js'
         })
     })
     var invertedcolour = document.getElementById("invertedcolour");
     invertedcolour.addEventListener("click", () => {
         chrome.tabs.executeScript({
-            file: './js/invertedColour.js'
+            file: './scripts/invertedColour.js'
         })
     })
     var increasedcontrast = document.getElementById("increasedcontrast");
     increasedcontrast.addEventListener("click", () => {
         chrome.tabs.executeScript({
-            file: './js/increasedcontrast.js'
+            file: './scripts/increasedcontrast.js'
         })
     })
     var invertedgreyscale = document.getElementById("invertedgreyscale");
     invertedgreyscale.addEventListener("click", () => {
         chrome.tabs.executeScript({
-            file: './js/invertedgreyscale.js'
+            file: './scripts/invertedgreyscale.js'
         })
     })
     var yellowonblack = document.getElementById("yellowonblack");
     yellowonblack.addEventListener("click", () => {
         chrome.tabs.executeScript({
-            file: './js/yellowonblack.js'
+            file: './scripts/yellowonblack.js'
         })
     })
 
@@ -80,27 +80,27 @@ if (document.querySelector(".popup")) {
         var op = fontStyle.options[fontStyle.selectedIndex].text;
         if (op === 'Arial') {
             chrome.tabs.executeScript({
-                file: './js/arial.js'
+                file: './scripts/arial.js'
             })
         }
         else if (op === 'Rockwell') {
             chrome.tabs.executeScript({
-                file: './js/rockwell.js'
+                file: './scripts/rockwell.js'
             })
         }
         else if (op === 'Tahoma') {
             chrome.tabs.executeScript({
-                file: './js/tahoma.js'
+                file: './scripts/tahoma.js'
             })
         }
         else if (op === 'Times New Roman') {
             chrome.tabs.executeScript({
-                file: './js/times.js'
+                file: './scripts/times.js'
             })
         }
         else if (op === 'Verdana') {
             chrome.tabs.executeScript({
-                file: './js/verdana.js'
+                file: './scripts/verdana.js'
             })
         }
         // document.querySelector("body").style.fontFamily = fontStyle.options[fontStyle.selectedIndex].text;
@@ -113,7 +113,7 @@ if (document.querySelector(".popup")) {
         chrome.tabs.executeScript({
             code: "var config = " + st + ";"
         }, function () {
-            chrome.tabs.executeScript({ file: './js/brightness.js' });
+            chrome.tabs.executeScript({ file: './scripts/brightness.js' });
         });
     })
 
@@ -124,7 +124,7 @@ if (document.querySelector(".popup")) {
         chrome.tabs.executeScript({
             code: "var config = " + sty + ";"
         }, function () {
-            chrome.tabs.executeScript({ file: './js/contrast.js' });
+            chrome.tabs.executeScript({ file: './scripts/contrast.js' });
         });
     })
 
@@ -135,7 +135,7 @@ if (document.querySelector(".popup")) {
         chrome.tabs.executeScript({
             code: "var config = " + si + ";"
         }, function () {
-            chrome.tabs.executeScript({ file: './js/font.js' });
+            chrome.tabs.executeScript({ file: './scripts/font.js' });
         });
     })
 
@@ -145,7 +145,7 @@ if (document.querySelector(".popup")) {
         chrome.tabs.executeScript({
             code: "var bconfig = '" + backgroundColor + "';"
         }, function () {
-            chrome.tabs.executeScript({ file: './js/backgroundColor.js' });
+            chrome.tabs.executeScript({ file: './scripts/backgroundColor.js' });
         });
     })
     
@@ -155,7 +155,7 @@ if (document.querySelector(".popup")) {
         chrome.tabs.executeScript({
             code: "var bconfig = '" + textColor + "';"
         }, function () {
-            chrome.tabs.executeScript({ file: './js/textColor.js' });
+            chrome.tabs.executeScript({ file: './scripts/textColor.js' });
         });
     })
 }

@@ -3,15 +3,27 @@
     "version": "1.0.0",
     "manifest_version": 2,
     "icons": {
-        "16": "./img/icon16.png",
-        "32": "./img/icon32.png",
-        "48": "./img/icon48.png",
-        "128": "./img/icon128.png"
+        "16": "./images/icon16.png",
+        "32": "./images/icon32.png",
+        "48": "./images/icon48.png",
+        "128": "./images/icon128.png"
       },
     "description": "Accessing visual information (written information) by persons with visual disability",
+    "content_scripts": [
+        {
+          "matches": [
+            "http://*/*",
+            "https://*/*"
+          ],
+          "js": ["scripts/jquery-3.1.1.min.js", "scripts/content.js"],
+          "run_at": "document_end"
+        }
+      ],
     "background": {
         "scripts": [
-            "popup.js"
+            "popup.js",
+            "scripts/jquery-3.1.1.min.js", 
+            "scripts/background.js"
         ],
         "persistent": true
     },
@@ -20,9 +32,12 @@
         "default_popup": "html/home.html"
     },
     "permissions": [
-        "https://*/*",
-        "http://*/*",
-        "tabs"
+        "activeTab",
+        "tabs",
+        "management",
+        "http://*/",
+        "https://*/",
+        "storage"
     ],
     "content_security_policy": "script-src 'self' https://fonts.googleapis.com/css 'unsafe-eval'; object-src 'self'"
 }

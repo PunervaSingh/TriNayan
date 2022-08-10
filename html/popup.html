@@ -73,11 +73,19 @@
         <!-- <span>Change color theme to one of the given color schemes.</span> -->
         <div class="section3">
             <h3>Custom background & text color</h3>
-            <input type="color" value="#e86c5c" id="backgroundColor" style="cursor: pointer;">
-            <label for="backgroundColor"> : Background Color</label>
+            <div style="margin: 0; padding: 0; display: inline-flex;">
+                <input type="color" value="#000" id="backgroundColor" style="cursor: pointer; height: 25px;">
+                <button class="btnbg" style="cursor: pointer; height: 25px; border: 2px solid white; background: #e86c5c; color: white; margin: auto;">Apply</button>
+                <label for="backgroundColor" style="margin: auto;"> : Background Color</label>
+                <!-- <input type="button" id="colorBtn" value="Bgcolor"> -->
+            </div>
             <br>
-            <input type="color" value="#588BE4" id="textColor" style="cursor: pointer;">
-            <label for="textColor"> : Text Color</label>
+            <div style="margin: 0; padding: 0; display: inline-flex;">
+                <input type="color" value="#ffde2c" id="textColor" style="cursor: pointer; height: 25px;">
+                <button class="btntext" style="cursor: pointer; height: 25px; border: 2px solid white; background: #e86c5c; color: white; margin: auto;">Apply</button>
+                <label for="textColor" style="margin: auto;"> : Text Color</label>
+                <!-- <input type="button" id="textBtn" value="Textcolor"> -->
+            </div>
         </div>
         
         <!-- <span>Change contrast of the page.</span> -->
@@ -131,7 +139,7 @@
     </div>
 
     <script src="../popup.js"></script>
-    <script src="../home.js"></script>
+    <script src="../js/home.js"></script>
 </body>
 
 </html>

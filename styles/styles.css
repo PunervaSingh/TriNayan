@@ -234,6 +234,14 @@ input[type="color"]::-webkit-color-swatch {
     display: flex;
 }
 
+.homeVisited {
+    color: #1d4589;
+}
+
+.homeVisited:visited {
+    color: #1d4589;
+}
+
 @keyframes transformToBlue {
     0% {
         background-color: #e86c5c;

@@ -9,7 +9,7 @@
         content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval' http://cdnjs.cloudflare.com ">
     <title>Document</title>
     <link href="https://fonts.googleapis.com/css?family=Lobster:400|Raleway:300,400,500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../styles/styles.css">
 </head>
 <style>
     h3 {
@@ -23,14 +23,14 @@
 
         <!-- <span>Top header with logo and name.</span> -->
         <p class="heading" style="margin-bottom: 10px; margin-top: 0;">
-            <img class="trinayanIcon" src="../img/icon48.png" alt="">
+            <img class="trinayanIcon" src="../images/icon48.png" alt="">
             <span class="yellow">Tri</span><span class="blue">Nayan</span>
         </p>
         <p style="text-transform: uppercase; text-align: center; color: gray; margin-top: 0; padding-top: 0;">A mission
             for a million Vision</p>
         <br>
-        <p style="margin: 0; padding: 0; padding-left: 5px; color: gray; font-size: 10px;">Say "Activate TriNayan" to
-            initialize voice assistant.</p>
+        <p style="margin: 0; padding: 0; padding-left: 5px; color: gray; font-size: 10px;">Click "Activate TriNayan Voice" to
+            initialize voice assistance.</p>
         <a href="reader.html">
             <div class="feature">
                 <div>
@@ -49,15 +49,19 @@
                 </div>
             </div>
         </a>
-        <a href="help.html">
+        <a href="../commands.html">
             <div class="feature">
                 <div>
-                    <h3 style="color: #e86c5c;">Help Center</h3>
-                    <p style="color: black;">View all the feature available to the user, along with all the command
-                        required to activate them.</p>
+                    <h3 style="color: #e86c5c;">Web Browser Controller</h3>
+                    <p style="color: black;">Users can control web browser through their voice, click to view all the commands available.</p>
                 </div>
             </div>
         </a>
+
+        <a style="float: left;" class="homeVisited" href="../settings.html">Settings</a>
+        <a style="float: right;" class="homeVisited" href="../enableMicrophone.html" id="enableInputButton">Activate TriNayan Voice</a>
+        <br>
+        <hr>
 
         <div class="section0">
             <div class="selfThemeButton" style="margin: 20px 30px 10px;">
@@ -73,8 +77,10 @@
             </div>
         </div>
     </div>
-
-    <script src="../js/home.js"></script>
+    <script src="../scripts/jquery-3.1.1.min.js"></script>
+    <script src="../scripts/enableMicrophone.js"></script>
+    <script src="../scripts/popup.js"></script>
+    <script src="../scripts/home.js"></script>
 </body>
 
 </html>

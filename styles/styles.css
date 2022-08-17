@@ -1,3 +1,7 @@
+@font-face {
+    font-family: "headingFont";
+    src: url(../fonts/saman.TTF);
+}
 body {
     margin: 0;
 }
@@ -5,7 +9,7 @@ body {
 .popup {
     min-width: 320px;
     min-height: 188px;
-    background: #FFFFFF;
+    background: #ffffff;
     /* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
     padding: 1.5rem 1.2rem;
 }
@@ -21,18 +25,9 @@ a {
 
 .heading {
     font-size: 1.5rem;
-    font-family: "Lobster";
+    font-family: "headingFont";
     text-align: center;
     position: relative;
-}
-
-.yellow {
-    color: #e86c5c;
-    padding-left: 65px;
-}
-
-.blue {
-    color: #588BE4;
 }
 
 p {
@@ -81,8 +76,8 @@ ol {
 .trinayanIcon {
     height: 40px;
     width: 40px;
-    bottom: -5px;
-    left: 30%;
+    bottom: -3px;
+    left: 20%;
     position: absolute;
 }
 

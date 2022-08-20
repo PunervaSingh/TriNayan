@@ -17,7 +17,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
       if (this.readyState == 4 && this.status == 200) {
         response_global = this.responseText;
 
-        
+
         var obj = JSON.parse(response_global);
 
         // console.log(obj);
@@ -30,7 +30,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
         var web_structure = "Wikipedia page for " + main_heading + " is open. " + "Page consists of " + (len - 2) + " sections. "
 
         var count = 1;
-        for(var key in obj) {
+        for (var key in obj) {
           if (key === 'See also') {
             break
           }

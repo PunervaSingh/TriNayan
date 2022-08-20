@@ -390,9 +390,97 @@ else {
                             // vision read paragraph one of section {section_name}
                             else if (event.results[i][0].transcript.toLowerCase().trim().includes("read para")) {
                                 var requestedPara = event.results[i][0].transcript.toLowerCase().trim().substr(event.results[i][0].transcript.toLowerCase().trim().indexOf("para") + 4, event.results[i][0].transcript.toLowerCase().trim().indexOf("of") - 17);
-                                var requestedSection = event.results[i][0].transcript.toLowerCase().trim().substr(event.results[i][0].transcript.toLowerCase().trim().indexOf("section") + 7, event.results[i][0].transcript.toLowerCase().trim().length - 1);
-                                var v_msg = "Want to read paragraph " + parseInt(requestedPara) + " of section " + requestedSection + ".";
-                                utterance = new SpeechSynthesisUtterance(v_msg);
+                                var requestedSection = event.results[i][0].transcript.toLowerCase().trim().substr(event.results[i][0].transcript.toLowerCase().trim().indexOf("section") + 8, event.results[i][0].transcript.toLowerCase().trim().length - 1);
+                                // var v_msg = "Want to read paragraph " + parseInt(requestedPara) + " of section " + requestedSection + ".";
+                                var web_st = "";
+
+                                if (localStorage.getItem("myJson") !== null) {
+                                    var passedJson = localStorage.getItem("myJson"); //get saved data anytime
+                                    var obj = JSON.parse(passedJson);
+                                    // console.log(obj)
+
+                                    var key = Object.keys(obj);
+                                    var len = key.length;
+
+                                    var web_content = ""
+
+                                    // Displays section heading and all its paragraphs
+                                    for (var key in obj) {
+                                        if (key.toLowerCase() === requestedSection) {
+                                            if (obj[key]['para'].length > 0) {
+                                                web_content += "Reading paragraph " + requestedPara + " of section " + key + ". ";
+                                                var para_no = 1;
+                                                for (var para in obj[key]['para']) {
+                                                    if (para_no === parseInt(requestedPara)) {
+                                                        web_content += obj[key]['para'][para] + " ";
+                                                    }
+                                                    para_no++;
+                                                }
+                                            } else {
+                                                web_content += "This section do not contain any paragraph";
+                                            }
+                                        }
+                                    }
+                                    web_st += web_content;
+                                } else {
+                                    var response_global = ""
+                                    var web_content
+
+                                    window.addEventListener('DOMContentLoaded', (event) => {
+
+                                        var url = "fetching url";
+
+                                        chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+                                            url = tabs[0].url
+
+                                            var xhttp = new XMLHttpRequest();
+
+                                            xhttp.open("POST", "http://127.0.0.1:5000/read_page");
+                                            xhttp.send("url=" + tabs[0].url);
+
+
+                                            xhttp.onreadystatechange = function () {
+                                                if (this.readyState == 4 && this.status == 200) {
+                                                    response_global = this.responseText;
+
+
+                                                    var obj = JSON.parse(response_global);
+
+                                                    // console.log(obj);
+
+                                                    var key = Object.keys(obj);
+                                                    var len = key.length;
+
+                                                    web_content = ""
+
+                                                    // Displays section heading and all its paragraphs
+                                                    for (var key in obj) {
+                                                        if (key.toLowerCase() === requestedSection) {
+                                                            if (obj[key]['para'].length > 0) {
+                                                                web_content += "Reading paragraph " + requestedPara + " of section " + key + ". ";
+                                                                var para_no = 1;
+                                                                for (var para in obj[key]['para']) {
+                                                                    if (para_no === parseInt(requestedPara)) {
+                                                                        web_content += obj[key]['para'][para] + " ";
+                                                                    }
+                                                                    para_no++;
+                                                                }
+                                                            } else {
+                                                                web_content += "This section do not contain any paragraph";
+                                                            }
+                                                        }
+                                                    }
+                                                    localStorage.setItem("myJson", response_global);
+                                                }
+                                            };
+                                        });
+                                    });
+                                    web_st += web_content
+                                }
+                                // localStorage.clear();
+                                // utterance = new SpeechSynthesisUtterance(requestedInput);
+                                utterance = new SpeechSynthesisUtterance(web_st);
+                                // utterance = new SpeechSynthesisUtterance(v_msg);
                             }
                             // vision read all images of section {section_name}
                             else if (event.results[i][0].transcript.toLowerCase().trim().includes("read all images of section")) {
@@ -477,7 +565,100 @@ else {
                                 // console.log(requestedInput);
                             }
                             // vision read image one of section {section_name}
+                            else if (event.results[i][0].transcript.toLowerCase().trim().includes("read image")) {
+                                var requestedImg = event.results[i][0].transcript.toLowerCase().trim().substr(event.results[i][0].transcript.toLowerCase().trim().indexOf("image") + 6, event.results[i][0].transcript.toLowerCase().trim().indexOf("of") - 19);
+                                var requestedSection = event.results[i][0].transcript.toLowerCase().trim().substr(event.results[i][0].transcript.toLowerCase().trim().indexOf("section") + 8, event.results[i][0].transcript.toLowerCase().trim().length - 1);
+                                // var v_msg = "Want to read paragraph " + parseInt(requestedImg) + " of section " + requestedSection + ".";
+                                var web_st = "";
 
+                                if (localStorage.getItem("myJson") !== null) {
+                                    var passedJson = localStorage.getItem("myJson"); //get saved data anytime
+                                    var obj = JSON.parse(passedJson);
+                                    // console.log(obj)
+
+                                    var key = Object.keys(obj);
+                                    var len = key.length;
+
+                                    var web_content = ""
+
+                                    // Displays section heading and all its paragraphs
+                                    for (var key in obj) {
+                                        if (key.toLowerCase() === requestedSection) {
+                                            if (obj[key]['images'].length > 0) {
+                                                web_content += "Reading image " + requestedImg + " of section " + key + ". ";
+                                                var para_no = 1;
+                                                for (var para in obj[key]['images']) {
+                                                    if (para_no === parseInt(requestedImg)) {
+                                                        web_content += obj[key]['images'][para] + " ";
+                                                    }
+                                                    para_no++;
+                                                }
+                                            } else {
+                                                web_content += "This section do not contain any image";
+                                            }
+                                        }
+                                    }
+                                    web_st += web_content;
+                                } else {
+                                    var response_global = ""
+                                    var web_content
+
+                                    window.addEventListener('DOMContentLoaded', (event) => {
+
+                                        var url = "fetching url";
+
+                                        chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+                                            url = tabs[0].url
+
+                                            var xhttp = new XMLHttpRequest();
+
+                                            xhttp.open("POST", "http://127.0.0.1:5000/read_page");
+                                            xhttp.send("url=" + tabs[0].url);
+
+
+                                            xhttp.onreadystatechange = function () {
+                                                if (this.readyState == 4 && this.status == 200) {
+                                                    response_global = this.responseText;
+
+
+                                                    var obj = JSON.parse(response_global);
+
+                                                    // console.log(obj);
+
+                                                    var key = Object.keys(obj);
+                                                    var len = key.length;
+
+                                                    web_content = ""
+
+                                                    // Displays section heading and all its paragraphs
+                                                    for (var key in obj) {
+                                                        if (key.toLowerCase() === requestedSection) {
+                                                            if (obj[key]['images'].length > 0) {
+                                                                web_content += "Reading image " + requestedImg + " of section " + key + ". ";
+                                                                var para_no = 1;
+                                                                for (var para in obj[key]['images']) {
+                                                                    if (para_no === parseInt(requestedImg)) {
+                                                                        web_content += obj[key]['images'][para] + " ";
+                                                                    }
+                                                                    para_no++;
+                                                                }
+                                                            } else {
+                                                                web_content += "This section do not contain any image";
+                                                            }
+                                                        }
+                                                    }
+                                                    localStorage.setItem("myJson", response_global);
+                                                }
+                                            };
+                                        });
+                                    });
+                                    web_st += web_content
+                                }
+                                // localStorage.clear();
+                                // utterance = new SpeechSynthesisUtterance(requestedInput);
+                                utterance = new SpeechSynthesisUtterance(web_st);
+                                // utterance = new SpeechSynthesisUtterance(v_msg);
+                            }
                             //vision a paragraph from particular section
                             else if (event.results[i][0].transcript.toLowerCase().trim().includes("paragraph")) {
                                 utterance = new SpeechSynthesisUtterance("To read a paragraph from particular section, give command like read paragraph one of section {section_name}. To read all paragraph from a particular section, give command read all paragraph of section {section_name}.");
@@ -727,7 +908,7 @@ else {
                                 utterance = new SpeechSynthesisUtterance("Explicitly inputting '" + requestedExplicitInput + "' into '" + requestedField + "'.");
                             }
                             // chrome skip
-                            else if ((event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1) == "skip")){
+                            else if ((event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1) == "skip")) {
                                 chrome.tabs.query({ 'active': true, 'lastFocusedWindow': true }, function (tabs) {
                                     var url = tabs[0].url;
                                     if (url.startsWith("https://www.youtube.com")) {

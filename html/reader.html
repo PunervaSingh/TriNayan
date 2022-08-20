@@ -10,6 +10,9 @@
     <link href="https://fonts.googleapis.com/css?family=Lobster:400|Raleway:300,400,500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../styles/styles.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="../scripts/structure.js" type="text/javascript"></script>   
+    <script src="../scripts/background.js"></script>
 </head>
 <style>
     h3 {
@@ -29,19 +32,32 @@
         <p style="text-transform: uppercase; text-align: center; color: gray; margin-top: 0; padding-top: 0;">A mission
             for
             a million Vision</p> -->
-        
         <a href="home.html" style="text-decoration: none; background: yellow; color: red; padding: 5px 20px;font-weight: bolder;"><i class="fa fa-arrow-left"></i> Back</a>
+        <br>
+        <br>
+        <div style="padding: 10px; border: 1px solid rgb(201, 201, 201); border-radius: 10px; max-width: 290px; overflow-y: scroll;"> 
+            <!-- url -->
+            <h3 id="header1">Fetching url...</h3>
+        </div>
         <div class="feature">
             <div>
                 <h3 style="color: #e86c5c;">Website Structure</h3>
                 <p style="color: black;">Give command to get the structure of the entire page, from paragraphs to pictures, everything will be informed.</p>
             </div>
         </div>
+        <div style="padding: 5px 10px 10px 10px; border: 1px solid rgb(201, 201, 201); max-height: 200px; overflow-y: scroll; border-radius: 10px;"> 
+            <!-- website structure -->
+            <p id="header2">Fetching website structure details...</p>
+        </div>
         <div class="feature">
             <div>
                 <h3 style="color: #e86c5c;">Text To Speech</h3>
                 <p style="color: black;">The content will be split according to the web page sections and the user can listen to specific paragraph of it.</p>
             </div>
+        </div>
+        <div style="padding: 5px 10px 10px 10px; border: 1px solid rgb(201, 201, 201); max-height: 400px; overflow-y: scroll; border-radius: 10px;"> 
+            <!-- all content for text to speech -->
+            <p id="mytext" style="font-family:verdana;line-height:1.4">Fetching content from the site...</p>
         </div>
         <div class="section0">
             <div class="selfThemeButton" style="margin: 20px 30px 10px;">

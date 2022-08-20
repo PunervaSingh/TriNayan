@@ -323,7 +323,7 @@ else {
 
                                     // Displays section heading and all its paragraphs
                                     for (var key in obj) {
-                                        if (key === 'Etymology') {
+                                        if (key.toLowerCase() === requestedInput) {
                                             web_content += "Reading Section " + key + " ";
                                             if (obj[key]['para'].length > 0) {
                                                 for (var para in obj[key]['para']) {
@@ -366,7 +366,7 @@ else {
 
                                                     // Displays section heading and all its paragraphs
                                                     for (var key in obj) {
-                                                        if (key === 'Etymology') {
+                                                        if (key.toLowerCase() === requestedInput) {
                                                             web_content += "Reading Section " + key + " ";
                                                             if (obj[key]['para'].length > 0) {
                                                                 for (var para in obj[key]['para']) {
@@ -385,12 +385,97 @@ else {
                                 // localStorage.clear();
                                 // utterance = new SpeechSynthesisUtterance(requestedInput);
                                 utterance = new SpeechSynthesisUtterance(web_st);
-                                console.log(requestedInput);
+                                // console.log(requestedInput);
                             }
                             // vision read paragraph one of section {section_name}
-
+                            else if (event.results[i][0].transcript.toLowerCase().trim().includes("read para")) {
+                                var requestedPara = event.results[i][0].transcript.toLowerCase().trim().substr(event.results[i][0].transcript.toLowerCase().trim().indexOf("para") + 4, event.results[i][0].transcript.toLowerCase().trim().indexOf("of") - 17);
+                                var requestedSection = event.results[i][0].transcript.toLowerCase().trim().substr(event.results[i][0].transcript.toLowerCase().trim().indexOf("section") + 7, event.results[i][0].transcript.toLowerCase().trim().length - 1);
+                                var v_msg = "Want to read paragraph " + parseInt(requestedPara) + " of section " + requestedSection + ".";
+                                utterance = new SpeechSynthesisUtterance(v_msg);
+                            }
                             // vision read all images of section {section_name}
+                            else if (event.results[i][0].transcript.toLowerCase().trim().includes("read all images of section")) {
+                                var requestedInput = event.results[i][0].transcript.toLowerCase().trim().substr(33, event.results[i][0].transcript.toLowerCase().trim().length - 1).trim();
+                                // var msg = "Wikipedia page for " + main_heading + " is open. " + "Page consists of " + (len - 2) + " sections. ";
+                                var web_st = "";
 
+                                if (localStorage.getItem("myJson") !== null) {
+                                    var passedJson = localStorage.getItem("myJson"); //get saved data anytime
+                                    var obj = JSON.parse(passedJson);
+                                    // console.log(obj)
+
+                                    var key = Object.keys(obj);
+                                    var len = key.length;
+
+                                    var web_content = ""
+
+                                    // Displays section heading and all its paragraphs
+                                    for (var key in obj) {
+                                        if (key.toLowerCase() === requestedInput) {
+                                            web_content += "Reading images of section " + key + " ";
+                                            if (obj[key]['images'].length > 0) {
+                                                for (var img in obj[key]['images']) {
+                                                    web_content += obj[key]['images'][img] + " ";
+                                                }
+                                            }
+                                        }
+                                    }
+                                    web_st += web_content;
+                                } else {
+                                    var response_global = ""
+                                    var web_content
+
+                                    window.addEventListener('DOMContentLoaded', (event) => {
+
+                                        var url = "fetching url";
+
+                                        chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+                                            url = tabs[0].url
+
+                                            var xhttp = new XMLHttpRequest();
+
+                                            xhttp.open("POST", "http://127.0.0.1:5000/read_page");
+                                            xhttp.send("url=" + tabs[0].url);
+
+
+                                            xhttp.onreadystatechange = function () {
+                                                if (this.readyState == 4 && this.status == 200) {
+                                                    response_global = this.responseText;
+
+
+                                                    var obj = JSON.parse(response_global);
+
+                                                    // console.log(obj);
+
+                                                    var key = Object.keys(obj);
+                                                    var len = key.length;
+
+                                                    web_content = ""
+
+                                                    // Displays section heading and all its paragraphs
+                                                    for (var key in obj) {
+                                                        if (key.toLowerCase() === requestedInput) {
+                                                            web_content += "Reading images of section " + key + " ";
+                                                            if (obj[key]['images'].length > 0) {
+                                                                for (var img in obj[key]['images']) {
+                                                                    web_content += obj[key]['images'][img] + " ";
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                    localStorage.setItem("myJson", response_global);
+                                                }
+                                            };
+                                        });
+                                    });
+                                    web_st += web_content
+                                }
+                                // localStorage.clear();
+                                // utterance = new SpeechSynthesisUtterance(requestedInput);
+                                utterance = new SpeechSynthesisUtterance(web_st);
+                                // console.log(requestedInput);
+                            }
                             // vision read image one of section {section_name}
 
                             //vision a paragraph from particular section
@@ -640,6 +725,20 @@ else {
                                     });
                                 });
                                 utterance = new SpeechSynthesisUtterance("Explicitly inputting '" + requestedExplicitInput + "' into '" + requestedField + "'.");
+                            }
+                            // chrome skip
+                            else if ((event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1) == "skip")){
+                                chrome.tabs.query({ 'active': true, 'lastFocusedWindow': true }, function (tabs) {
+                                    var url = tabs[0].url;
+                                    if (url.startsWith("https://www.youtube.com")) {
+                                        chrome.tabs.executeScript(null, { file: "scripts/jquery-3.1.1.min.js" }, function () {
+                                            chrome.tabs.executeScript({
+                                                code: "$('.ytp-ad-skip-button')[0].click();"
+                                            });
+                                        });
+                                    }
+                                });
+                                utterance = new SpeechSynthesisUtterance("Skipping ad.");
                             }
                             // chrome submit
                             else if ((event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1) == "search" || event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1) == "submit" || event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1) == "enter") && event.results[i][0].transcript.trim().length < 14) {

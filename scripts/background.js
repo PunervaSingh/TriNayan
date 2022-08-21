@@ -75,6 +75,16 @@ else {
                             if (event.results[i][0].transcript.toLowerCase().trim().includes("new tab")) {
                                 chrome.tabs.create({ url: "chrome://newtab" });
                             }
+                            // chrome stop speaking
+                            else if (event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1) == "stop speaking" || event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1) == "shut up" || event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1) == "be quiet") {
+                                var voice = 'off';
+                                chrome.storage.sync.set({ 'voice': voice });
+                            }
+                            // chrome start speaking
+                            else if (event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1) == "start speaking") {
+                                var voice = 'on';
+                                chrome.storage.sync.set({ 'voice': voice });
+                            }
                             // vision start website reader
                             else if (event.results[i][0].transcript.toLowerCase().trim().includes("start website reader")) {
                                 utterance = new SpeechSynthesisUtterance("website reader initiated, what would you like to listen to? website structure or website content");
@@ -501,10 +511,12 @@ else {
                                     // Displays section heading and all its paragraphs
                                     for (var key in obj) {
                                         if (key.toLowerCase() === requestedInput) {
-                                            web_content += "Reading images of section " + key + " ";
+                                            web_content += "Reading images of section " + key + ". ";
                                             if (obj[key]['images'].length > 0) {
+                                                var img_no = 1;
                                                 for (var img in obj[key]['images']) {
-                                                    web_content += obj[key]['images'][img] + " ";
+                                                    web_content += "Reading image " + img_no + ". " + obj[key]['images'][img] + "...    ";
+                                                    img_no++;
                                                 }
                                             }
                                         }
@@ -544,10 +556,12 @@ else {
                                                     // Displays section heading and all its paragraphs
                                                     for (var key in obj) {
                                                         if (key.toLowerCase() === requestedInput) {
-                                                            web_content += "Reading images of section " + key + " ";
+                                                            web_content += "Reading images of section " + key + ". ";
                                                             if (obj[key]['images'].length > 0) {
+                                                                var img_no = 1;
                                                                 for (var img in obj[key]['images']) {
-                                                                    web_content += obj[key]['images'][img] + " ";
+                                                                    web_content += "Reading image " + img_no + ". " + obj[key]['images'][img] + "...    ";
+                                                                    img_no++;
                                                                 }
                                                             }
                                                         }
@@ -984,16 +998,6 @@ else {
                                 chrome.tabs.update({
                                     url: "https://www.google.com/search?q=" + requestedSearch.split(' ').join('+')
                                 });
-                            }
-                            // chrome stop speaking
-                            else if (event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1) == "stop speaking" || event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1) == "shut up" || event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1) == "be quiet") {
-                                var voice = 'off';
-                                chrome.storage.sync.set({ 'voice': voice });
-                            }
-                            // chrome start speaking
-                            else if (event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1) == "start speaking") {
-                                var voice = 'on';
-                                chrome.storage.sync.set({ 'voice': voice });
                             }
                             // chrome help
                             else if (event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1) == "help") {

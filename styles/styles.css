@@ -9,8 +9,9 @@ body {
 .popup {
     min-width: 320px;
     min-height: 188px;
-    background: #f5e9db;
-    /* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
+    background-image: url(../images/bg-2.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
     padding: 1.5rem 1.2rem;
 }
 
@@ -65,7 +66,6 @@ p {
     background-color: #ad3727;
     pointer-events: none;
     transition: 0.5s;
-
 }
 
 ol {
@@ -186,7 +186,7 @@ input[type="color"]::-webkit-color-swatch {
 }
 
 .feature {
-    border: 1px solid rgb(199, 199, 199);
+    border: 1px solid rgba(103, 103, 103, 0.511);
     padding: 15px 20px 10px;
     border-radius: 10px;
     margin: 10px 0;

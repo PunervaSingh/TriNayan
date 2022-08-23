@@ -61,7 +61,7 @@ else {
                 var prefix = "";
                 chrome.storage.sync.get('prefix', function (result) {
                     prefix = result.prefix;
-                    // chrome prefix on
+                    // vision prefix on
                     if (prefix == "on") {
                         if (event.results[i][0].transcript.toLowerCase().trim().startsWith("vision")) {
                             // Results are final
@@ -71,16 +71,16 @@ else {
                             utterance.lang = "en-IN";
                             utterance.voice = voices.filter(function (voice) { return voice.name == 'Rishi'; })[0];
 
-                            // chrome new tab
+                            // vision new tab
                             if (event.results[i][0].transcript.toLowerCase().trim().includes("new tab")) {
                                 chrome.tabs.create({ url: "chrome://newtab" });
                             }
-                            // chrome stop speaking
+                            // vision stop speaking
                             else if (event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1) == "stop speaking" || event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1) == "shut up" || event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1) == "be quiet") {
                                 var voice = 'off';
                                 chrome.storage.sync.set({ 'voice': voice });
                             }
-                            // chrome start speaking
+                            // vision start speaking
                             else if (event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1) == "start speaking") {
                                 var voice = 'on';
                                 chrome.storage.sync.set({ 'voice': voice });
@@ -233,7 +233,7 @@ else {
                                 // localStorage.clear();
                                 utterance = new SpeechSynthesisUtterance(web_st);
                             }
-                            // chrome give website structure
+                            // vision give website structure
                             else if (event.results[i][0].transcript.toLowerCase().trim().includes("give website structure")) {
                                 // var msg = "Wikipedia page for " + main_heading + " is open. " + "Page consists of " + (len - 2) + " sections. ";
                                 var web_st = "";
@@ -681,98 +681,98 @@ else {
                             else if (event.results[i][0].transcript.toLowerCase().trim().includes("image")) {
                                 utterance = new SpeechSynthesisUtterance("To get discription of an image from particular section, give command like read image one of section {section_name}. To read all images from a particular section, give command read all images of section {section_name}.");
                             }
-                            // chrome activate TriNayan
+                            // vision activate TriNayan
                             else if (event.results[i][0].transcript.toLowerCase().trim().includes("activate")) {
                                 var utterance = new SpeechSynthesisUtterance("Trinayan activated.");
                             }
-                            // chrome guide in speech
+                            // vision guide in speech
                             else if (event.results[i][0].transcript.toLowerCase().trim().includes("guide")) {
-                                // var utterance = new SpeechSynthesisUtterance(`1) chrome help
+                                // var utterance = new SpeechSynthesisUtterance(`1) vision help
                                 // Opens a page with all commands currently available in TriNayan, complete with a description and example if needed.
 
-                                // 2) chrome new tab
+                                // 2) vision new tab
                                 // Opens a new tab to chrome://newtab.
 
-                                // 3) chrome close tab
+                                // 3) vision close tab
                                 // Closes the active tab.
 
-                                // 4) chrome close chrome
+                                // 4) vision close chrome
                                 // Closes Google Chrome.
 
-                                // 5) chrome go to {URL}
+                                // 5) vision go to {URL}
                                 // Redirects the active tab to {URL}.
-                                // e.g. chrome go to reddit.com
+                                // e.g. vision go to reddit.com
 
-                                // 6) chrome scroll down
+                                // 6) vision scroll down
                                 // Scrolls down the active web page by the height of the window minus 100 pixels.
 
-                                // 7) chrome scroll up
+                                // 7) vision scroll up
                                 // Scrolls up the active web page by the height of the window minus 100 pixels.
 
-                                // 8) chrome back/chrome go back
+                                // 8) vision back/vision go back
                                 // Redirects the active tab back one page in history.
 
-                                // 9) chrome forward/chrome go forward
+                                // 9) vision forward/vision go forward
                                 // Redirects the active tab forward one page in history.
 
-                                // 10) chrome tab {TAB NUMBER}/chrome go to tab {TAB NUMBER}
+                                // 10) vision tab {TAB NUMBER}/vision go to tab {TAB NUMBER}
                                 // Changes the active tab to the {TAB NUMBER}.
-                                // e.g. chrome go to tab 2
+                                // e.g. vision go to tab 2
 
-                                // 11) chrome click on {LINK}
+                                // 11) vision click on {LINK}
                                 // Searches the active web page for the {LINK}.{LINK} can be just a snippet of the wanted link. Note that this command will not work for all web pages.
-                                // e.g. chrome click on home
+                                // e.g. vision click on home
 
-                                // 12) chrome click on {LINK} no spaces
+                                // 12) vision click on {LINK} no spaces
                                 // Searches the active web page for the {LINK} as all one word.{LINK} can be just a snippet of the wanted link. Note that this command will not work for all web pages.
-                                // e.g. chrome click on navi voice no spaces
+                                // e.g. vision click on navi voice no spaces
 
-                                // 13) chrome input {STRING}/chrome search {STRING}
+                                // 13) vision input {STRING}/vision search {STRING}
                                 // Fills the first text input field (if found) with {STRING}.
-                                // e.g. chrome search funny cat
+                                // e.g. vision search funny cat
 
-                                // 14) chrome explicit input {STRING} into {FIELD}/chrome explicitly input {STRING} into {FIELD}
+                                // 14) vision explicit input {STRING} into {FIELD}/vision explicitly input {STRING} into {FIELD}
                                 // Searches the active web page for a text field with the {FIELD} placeholder text and enters {STRING} into it. Useful if more than one text input field on web page.
-                                // e.g. chrome explicitly input nice picture into comment
+                                // e.g. vision explicitly input nice picture into comment
 
-                                // 15) chrome submit/chrome search/chrome enter
-                                // Submits the first text input field (if found) in the active web page. Usually used in conjunction with chrome input {STRING}/chrome search {STRING}.
+                                // 15) vision submit/vision search/vision enter
+                                // Submits the first text input field (if found) in the active web page. Usually used in conjunction with vision input {STRING}/vision search {STRING}.
 
-                                // 16) chrome google {STRING}
+                                // 16) vision google {STRING}
                                 // Googles {STRING}.
-                                // e.g. chrome google dank memes
+                                // e.g. vision google dank memes
 
-                                // 17) chrome stop speaking
+                                // 17) vision stop speaking
                                 // Mutes the voice of TriNayan.
 
-                                // 18) chrome start speaking
+                                // 18) vision start speaking
                                 // Unmutes the voice of TriNayan.
 
-                                // 19) chrome toggle
-                                // Remove the 'chrome' prefix from commands. Commands are spoken as usual but without the 'chrome' prefix.
+                                // 19) vision toggle
+                                // Remove the 'vision ' prefix from commands. Commands are spoken as usual but without the 'vision ' prefix.
 
                                 // 20) toggle
-                                // Add the 'chrome' prefix to commands. Commands are spoken as usual but with the 'chrome' prefix.
+                                // Add the 'vision ' prefix to commands. Commands are spoken as usual but with the 'vision ' prefix.
 
-                                // 21) chrome play video
+                                // 21) vision play video
                                 // Plays a YouTube video on the current page.
 
-                                // 22) chrome pause video
+                                // 22) vision pause video
                                 // Pauses a YouTube video on the current page.
 
-                                // 23) chrome mute video
+                                // 23) vision mute video
                                 // Mutes a YouTube video on the current page.
 
-                                // 24) chrome calculate {FORMULA}
+                                // 24) vision calculate {FORMULA}
                                 // Calculates a mathematical formula. At this time, the command will only work with "add", "subtract", "multiplied by", and "divided by".
-                                // e.g. chrome calculate five plus two times seven`);
-                                var utterance = new SpeechSynthesisUtterance(`1) chrome help
+                                // e.g. vision calculate five plus two times seven`);
+                                var utterance = new SpeechSynthesisUtterance(`1) vision help
                                 Opens a page with all commands currently available in TriNayan, complete with a description and example if needed.
                                 
-                                2) chrome new tab
+                                2) vision new tab
                                 Opens a new tab to chrome://newtab.`);
                             }
-                            // chrome go to
+                            // vision go to
                             else if (event.results[i][0].transcript.toLowerCase().trim().includes("go to") && event.results[i][0].transcript.trim().length > 13) {
                                 if (event.results[i][0].transcript.toLowerCase().trim().includes(".")) {
                                     var requestedUrl = event.results[i][0].transcript.toLowerCase().trim().substr(event.results[i][0].transcript.toLowerCase().trim().indexOf("go to") + 6, event.results[i][0].transcript.trim().length - 1).replace(/\s+/g, '');
@@ -797,7 +797,7 @@ else {
                                     utterance = new SpeechSynthesisUtterance("Please specify a valid URL.");
                                 }
                             }
-                            // chrome close tab
+                            // vision close tab
                             else if (event.results[i][0].transcript.toLowerCase().trim().includes("close") && event.results[i][0].transcript.toLowerCase().trim().includes("tab")) {
                                 if (event.results[i][0].transcript.toLowerCase().trim().includes("1") || event.results[i][0].transcript.toLowerCase().trim().includes("2") || event.results[i][0].transcript.toLowerCase().trim().includes("3") || event.results[i][0].transcript.toLowerCase().trim().includes("4") || event.results[i][0].transcript.toLowerCase().trim().includes("5") || event.results[i][0].transcript.toLowerCase().trim().includes("6") || event.results[i][0].transcript.toLowerCase().trim().includes("7") || event.results[i][0].transcript.toLowerCase().trim().includes("8") || event.results[i][0].transcript.toLowerCase().trim().includes("9")) {
                                     var requestedTab = event.results[i][0].transcript.toLowerCase().trim().substr(event.results[i][0].transcript.toLowerCase().trim().indexOf("tab") + 4, event.results[i][0].transcript.toLowerCase().trim().length - 1);
@@ -814,7 +814,7 @@ else {
                                     utterance = new SpeechSynthesisUtterance("Closing tab.");
                                 }
                             }
-                            // chrome close chrome
+                            // vision close chrome
                             else if (event.results[i][0].transcript.toLowerCase().trim().includes("close chrome")) {
                                 chrome.tabs.query({}, function (tabs) {
                                     for (var i = 0; i < tabs.length; i++) {
@@ -822,7 +822,7 @@ else {
                                     }
                                 });
                             }
-                            // chrome scroll down
+                            // vision scroll down
                             else if (event.results[i][0].transcript.toLowerCase().trim().includes("scroll down")) {
                                 chrome.tabs.executeScript(null, { file: "scripts/jquery-3.1.1.min.js" }, function () {
                                     chrome.tabs.executeScript({
@@ -830,7 +830,7 @@ else {
                                     });
                                 });
                             }
-                            // chrome scroll up
+                            // vision scroll up
                             else if (event.results[i][0].transcript.toLowerCase().trim().includes("scroll up")) {
                                 chrome.tabs.executeScript(null, { file: "scripts/jquery-3.1.1.min.js" }, function () {
                                     chrome.tabs.executeScript({
@@ -838,7 +838,7 @@ else {
                                     });
                                 });
                             }
-                            // chrome go back
+                            // vision go back
                             else if (event.results[i][0].transcript.toLowerCase().trim().includes("back") && event.results[i][0].transcript.toLowerCase().trim().includes("go to") == false) {
                                 chrome.tabs.executeScript(null, { file: "scripts/jquery-3.1.1.min.js" }, function () {
                                     chrome.tabs.executeScript({
@@ -847,7 +847,7 @@ else {
                                 });
                                 utterance = new SpeechSynthesisUtterance("Going backwards.");
                             }
-                            // chrome go forward
+                            // vision go forward
                             else if (event.results[i][0].transcript.toLowerCase().trim().includes("forward") && event.results[i][0].transcript.toLowerCase().trim().includes("go to") == false) {
                                 chrome.tabs.executeScript(null, { file: "scripts/jquery-3.1.1.min.js" }, function () {
                                     chrome.tabs.executeScript({
@@ -856,7 +856,7 @@ else {
                                 });
                                 utterance = new SpeechSynthesisUtterance("Going forwards.");
                             }
-                            // chrome go to tab
+                            // vision go to tab
                             else if (event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1).startsWith("go to tab") || event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1).startsWith("tab")) {
                                 var requestedTab = event.results[i][0].transcript.toLowerCase().trim().substr(event.results[i][0].transcript.toLowerCase().trim().indexOf("tab") + 4, event.results[i][0].transcript.trim().length - 1);
                                 chrome.tabs.query({}, function (tabs) {
@@ -864,7 +864,7 @@ else {
                                 });
                                 utterance = new SpeechSynthesisUtterance("Switching to tab '" + requestedTab + "'.");
                             }
-                            // chrome click on
+                            // vision click on
                             else if (event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1).startsWith("click on") && event.results[i][0].transcript.toLowerCase().trim().endsWith("no spaces") == false && event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1).startsWith("click on link ") == false && event.results[i][0].transcript.toLowerCase().trim().length > 16) {
                                 var requestedLink = event.results[i][0].transcript.toLowerCase().trim().substr(16, event.results[i][0].transcript.toLowerCase().trim().length - 1);
                                 chrome.tabs.executeScript(null, { file: "scripts/jquery-3.1.1.min.js" }, function () {
@@ -874,7 +874,7 @@ else {
                                 });
                                 utterance = new SpeechSynthesisUtterance("Clicking on '" + requestedLink + "'.");
                             }
-                            // chrome click on no spaces
+                            // vision click on no spaces
                             else if (event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1).startsWith("click on") && event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1).startsWith("click on link ") == false && event.results[i][0].transcript.toLowerCase().trim().endsWith("no spaces") && event.results[i][0].transcript.toLowerCase().trim().length > 26) {
                                 var requestedLink = event.results[i][0].transcript.toLowerCase().trim().substr(15, event.results[i][0].transcript.toLowerCase().trim().length - 25).replace(/\s+/g, '');
                                 // console.log(requestedLink);
@@ -885,7 +885,7 @@ else {
                                 });
                                 utterance = new SpeechSynthesisUtterance("Clicking on '" + requestedLink + "'.");
                             }
-                            // chrome input
+                            // vision input
                             else if (event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1).startsWith("input") || event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1).startsWith("search") && event.results[i][0].transcript.toLowerCase().trim().length > 13) {
                                 var requestedInput = event.results[i][0].transcript.toLowerCase().trim().substr(13, event.results[i][0].transcript.toLowerCase().trim().length - 1).trim();
                                 chrome.tabs.executeScript(null, { file: "scripts/jquery-3.1.1.min.js" }, function () {
@@ -895,7 +895,7 @@ else {
                                 });
                                 utterance = new SpeechSynthesisUtterance("Inputting '" + requestedInput + "'.");
                             }
-                            // chrome explicit input
+                            // vision explicit input
                             else if (event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1).startsWith("explicit input") && event.results[i][0].transcript.toLowerCase().trim().length > 22) {
                                 var requestedExplicitInput = event.results[i][0].transcript.toLowerCase().trim().substr(22, event.results[i][0].transcript.toLowerCase().trim().indexOf("into") - 23);
                                 var requestedField = event.results[i][0].transcript.toLowerCase().trim().substr(event.results[i][0].transcript.toLowerCase().trim().indexOf("into") + 4, event.results[i][0].transcript.toLowerCase().trim().length - 1).trim();
@@ -908,7 +908,7 @@ else {
                                 });
                                 utterance = new SpeechSynthesisUtterance("Explicitly inputting '" + requestedExplicitInput + "' into '" + requestedField + "'.");
                             }
-                            // chrome explicitly input
+                            // vision explicitly input
                             else if (event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1).startsWith("explicitly input") && event.results[i][0].transcript.toLowerCase().trim().length > 24) {
                                 var requestedExplicitInput = event.results[i][0].transcript.toLowerCase().trim().substr(24, event.results[i][0].transcript.toLowerCase().trim().indexOf("into") - 25);
                                 var requestedField = event.results[i][0].transcript.toLowerCase().trim().substr(event.results[i][0].transcript.toLowerCase().trim().indexOf("into") + 4, event.results[i][0].transcript.toLowerCase().trim().length - 1).trim();
@@ -921,8 +921,8 @@ else {
                                 });
                                 utterance = new SpeechSynthesisUtterance("Explicitly inputting '" + requestedExplicitInput + "' into '" + requestedField + "'.");
                             }
-                            // chrome skip
-                            else if ((event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1) == "skip")) {
+                            // vision skip video
+                            else if ((event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1) == "skip video")) {
                                 chrome.tabs.query({ 'active': true, 'lastFocusedWindow': true }, function (tabs) {
                                     var url = tabs[0].url;
                                     if (url.startsWith("https://www.youtube.com")) {
@@ -935,7 +935,7 @@ else {
                                 });
                                 utterance = new SpeechSynthesisUtterance("Skipping ad.");
                             }
-                            // chrome submit
+                            // vision submit
                             else if ((event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1) == "search" || event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1) == "submit" || event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1) == "enter") && event.results[i][0].transcript.trim().length < 14) {
                                 chrome.tabs.query({ 'active': true, 'lastFocusedWindow': true }, function (tabs) {
                                     var url = tabs[0].url;
@@ -992,30 +992,40 @@ else {
                                 });
                                 utterance = new SpeechSynthesisUtterance("Submitting input.");
                             }
-                            // chrome google
+                            // vision google
                             else if (event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1).startsWith("google")) {
                                 var requestedSearch = event.results[i][0].transcript.toLowerCase().trim().substr(14, event.results[i][0].transcript.trim().length - 1);
                                 chrome.tabs.update({
                                     url: "https://www.google.com/search?q=" + requestedSearch.split(' ').join('+')
                                 });
                             }
-                            // chrome help
+                            // vision open a new document
+                            else if (event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1).startsWith("open a new document")) {
+                                chrome.tabs.executeScript(null, { file: "scripts/jquery-3.1.1.min.js" }, function () {
+                                    chrome.tabs.executeScript({
+                                        code: "$('.docs-homescreen-templates-templateview-preview')[0].click();"
+                                        //$('button[type=\"submit\"]').trigger('click');
+                                    });
+                                });
+                                utterance = new SpeechSynthesisUtterance("Opening a new document.");
+                            }
+                            // vision help
                             else if (event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1) == "help") {
                                 window.open("https://trinayan.netlify.app/")
                                 utterance = new SpeechSynthesisUtterance("Opening help.");
                             }
-                            // chrome toggle
+                            // vision toggle
                             else if (event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1) == "toggle") {
                                 var prefix = 'off';
                                 chrome.storage.sync.set({ 'prefix': prefix });
-                                utterance = new SpeechSynthesisUtterance("Prefix has been turned off. You will now say commands without the 'chrome' prefix.");
+                                utterance = new SpeechSynthesisUtterance("Prefix has been turned off. You will now say commands without the 'vision' prefix.");
                             }
-                            // chrome othello reversi
+                            // vision othello reversi
                             // else if (event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1) == "othello reversi") {
                             //     chrome.tabs.create({ url: "https://misscaptainalex.files.wordpress.com/2013/05/210.gif" });
                             //     utterance = new SpeechSynthesisUtterance("JULIAN BOOLEAN!");
                             // }
-                            // chrome pause video
+                            // vision pause video
                             else if (event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1) == ("pause video") || event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1) == ("play video") || event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1) == ("paws video")) {
                                 chrome.tabs.executeScript(null, { file: "scripts/jquery-3.1.1.min.js" }, function () {
                                     chrome.tabs.executeScript({
@@ -1023,7 +1033,7 @@ else {
                                     });
                                 });
                             }
-                            // chrome mute video
+                            // vision mute video
                             else if (event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1) == ("mute video")) {
                                 chrome.tabs.executeScript(null, { file: "scripts/jquery-3.1.1.min.js" }, function () {
                                     chrome.tabs.executeScript({
@@ -1031,13 +1041,13 @@ else {
                                     });
                                 });
                             }
-                            // chrome calculate
+                            // vision calculate
                             else if (event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1).startsWith("calculate")) {
                                 var answer = eval(event.results[i][0].transcript.toLowerCase().trim().substr(17, event.results[i][0].transcript.trim().length - 1).replace("divided by", "/").replace("multiplied by", "*").replace("x", "*").replace("times", "*"));
                                 answer = answer.toString();
                                 utterance = new SpeechSynthesisUtterance(event.results[i][0].transcript.toLowerCase().trim().substr(17, event.results[i][0].transcript.trim().length - 1) + " is " + answer);
                             }
-                            // chrome list links
+                            // vision list links
                             else if (event.results[i][0].transcript.toLowerCase().trim().includes("list links") || event.results[i][0].transcript.toLowerCase().trim().includes("list link")) {
                                 /*chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
                                     chrome.tabs.insertCSS(tabs[0].id, {code: "body{counter-reset: linkCtr 0;} a{counter-increment: linkCtr 1;} a:before{content:'[' counter(linkCtr) ']';}"});
@@ -1049,7 +1059,7 @@ else {
                                 });
                                 utterance = new SpeechSynthesisUtterance("Listing links.");
                             }
-                            // chrome click on link #
+                            // vision click on link #
                             else if (event.results[i][0].transcript.toLowerCase().trim().includes("click on link") || event.results[i][0].transcript.toLowerCase().trim().includes("quick on link") && event.results[i][0].transcript.trim().length > 18) {
                                 var linkNum = event.results[i][0].transcript.toLowerCase().trim().substr(event.results[i][0].transcript.toLowerCase().trim().indexOf("link") + 5, event.results[i][0].transcript.trim().length - 1);
                                 chrome.tabs.executeScript(null, { file: "scripts/jquery-3.1.1.min.js" }, function () {
@@ -1059,45 +1069,45 @@ else {
                                 });
                                 utterance = new SpeechSynthesisUtterance("Clicking on link " + linkNum + ".");
                             }
-                            // chrome history
+                            // vision history
                             else if (event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1) == "history") {
                                 chrome.tabs.update({
                                     url: "chrome://history"
                                 });
                                 utterance = new SpeechSynthesisUtterance("Showing you your history.");
                             }
-                            // chrome extensions
+                            // vision extensions
                             else if (event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1) == "extensions") {
                                 chrome.tabs.update({
                                     url: "chrome://extensions"
                                 });
                                 utterance = new SpeechSynthesisUtterance("Showing you your extensions.");
                             }
-                            // chrome downloads
+                            // vision downloads
                             else if (event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1) == "downloads") {
                                 chrome.tabs.update({
                                     url: "chrome://downloads"
                                 });
                                 utterance = new SpeechSynthesisUtterance("Showing you your downloads.");
                             }
-                            // chrome (without follow up command)
+                            // vision (without follow up command)
                             else if (event.results[i][0].transcript.toLowerCase().trim() == ("chrome")) {
                                 utterance = new SpeechSynthesisUtterance(whatResponses[Math.floor(Math.random() * whatResponses.length)]);
                             }
-                            // chrome reload
+                            // vision reload
                             else if (event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1) == "reload") {
                                 chrome.tabs.query({ active: true, currentWindow: true }, function (arrayOfTabs) {
                                     var code = 'window.location.reload();';
                                     chrome.tabs.executeScript(arrayOfTabs[0].id, { code: code });
                                 });
                             }
-                            // chrome stop listening
+                            // vision stop listening
                             else if (event.results[i][0].transcript.toLowerCase().trim().includes("stop listening")) {
                                 chrome.management.getSelf(function (result) {
                                     chrome.management.setEnabled(result.id, false)
                                 });
                             }
-                            // chrome change theme
+                            // vision change theme
                             // else if (event.results[i][0].transcript.toLowerCase().trim().includes("change")) {
                             //     chrome.tabs.executeScript(null, { file: "scripts/jquery-3.1.1.min.js" }, function () {
                             //         chrome.tabs.executeScript({
@@ -1119,7 +1129,7 @@ else {
                             });
                         }
                     }
-                    // chrome prefix off
+                    // vision prefix off
                     else if (prefix == "off") {
                         // Results are final
                         // console.log("words said:" + event.results[i][0].transcript);
@@ -1132,95 +1142,691 @@ else {
                             chrome.tabs.create({ url: "chrome://newtab" });
                             var utterance = new SpeechSynthesisUtterance("Opening a new tab.");
                         }
+                        // vision start website reader
+                        else if (event.results[i][0].transcript.toLowerCase().trim().includes("start website reader")) {
+                            utterance = new SpeechSynthesisUtterance("website reader initiated, what would you like to listen to? website structure or website content");
+                        }
+                        // vision what is website structure?
+                        else if (event.results[i][0].transcript.toLowerCase().trim().includes("what is website structure")) {
+                            utterance = new SpeechSynthesisUtterance("Give website structure command to get the structure of the entire page, from paragraphs to images, everything will be informed for every section.");
+                        }
+                        // vision what is website content?
+                        else if (event.results[i][0].transcript.toLowerCase().trim().includes("what is website content")) {
+                            utterance = new SpeechSynthesisUtterance("The content will be split according to the web page sections and the user can listen to specific paragraph or image discription of it for a particular section.");
+                        }
+                        // vision current page
+                        else if (event.results[i][0].transcript.toLowerCase().trim().includes("current page")) {
+                            // var msg = "Wikipedia page for " + main_heading + " is open. " + "Page consists of " + (len - 2) + " sections. ";
+                            var web_st = "";
+
+                            if (localStorage.getItem("myJson") !== null) {
+                                var passedJson = localStorage.getItem("myJson"); //get saved data anytime
+                                var obj = JSON.parse(passedJson);
+                                // console.log(obj)
+
+                                var key = Object.keys(obj);
+                                var len = key.length;
+                                var main_heading = Object.keys(obj)[len - 1];
+
+                                var web_structure = "Wikipedia page for " + main_heading + " is open. "
+
+                                web_st += web_structure
+                                // localStorage.clear();
+                            } else {
+                                var response_global = ""
+                                var web_structure
+
+                                window.addEventListener('DOMContentLoaded', (event) => {
+
+                                    var url = "fetching url";
+
+                                    chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+                                        url = tabs[0].url
+
+                                        var xhttp = new XMLHttpRequest();
+
+                                        xhttp.open("POST", "http://127.0.0.1:5000/read_page");
+                                        xhttp.send("url=" + tabs[0].url);
+
+
+                                        xhttp.onreadystatechange = function () {
+                                            if (this.readyState == 4 && this.status == 200) {
+                                                response_global = this.responseText;
+
+                                                var obj = JSON.parse(response_global);
+
+                                                // console.log(obj);
+
+                                                var key = Object.keys(obj);
+                                                var len = key.length;
+                                                var main_heading = Object.keys(obj)[len - 1];
+                                                document.getElementById("header1").innerHTML = "URL:" + url;
+
+                                                web_structure = "Wikipedia page for " + main_heading + " is open. "
+
+                                                localStorage.setItem("myJson", response_global);
+                                            }
+                                        };
+                                    });
+                                });
+                                web_st += web_structure
+                            }
+                            // localStorage.clear();
+                            utterance = new SpeechSynthesisUtterance(web_st);
+                        }
+                        // vision give sections (tells only the different section on the page)
+                        else if (event.results[i][0].transcript.toLowerCase().trim().includes("give page sections")) {
+                            // var msg = "Wikipedia page for " + main_heading + " is open. " + "Page consists of " + (len - 2) + " sections. ";
+                            var web_st = "";
+
+                            if (localStorage.getItem("myJson") !== null) {
+                                var passedJson = localStorage.getItem("myJson"); //get saved data anytime
+                                var obj = JSON.parse(passedJson);
+                                // console.log(obj)
+
+                                var key = Object.keys(obj);
+                                var len = key.length;
+
+                                var web_structure = (len - 2) + " sections on the page are "
+
+                                var count = 1;
+                                for (var key in obj) {
+                                    if (count == (len - 2)) {
+                                        break
+                                    }
+                                    var ad = count + " " + key;
+                                    web_structure += ad;
+                                    count++;
+                                }
+                                web_st += web_structure
+                                // localStorage.clear();
+                            } else {
+                                var response_global = ""
+                                var web_structure
+
+                                window.addEventListener('DOMContentLoaded', (event) => {
+
+                                    var url = "fetching url";
+
+                                    chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+                                        url = tabs[0].url
+
+                                        var xhttp = new XMLHttpRequest();
+
+                                        xhttp.open("POST", "http://127.0.0.1:5000/read_page");
+                                        xhttp.send("url=" + tabs[0].url);
+
+
+                                        xhttp.onreadystatechange = function () {
+                                            if (this.readyState == 4 && this.status == 200) {
+                                                response_global = this.responseText;
+
+                                                var obj = JSON.parse(response_global);
+
+                                                // console.log(obj);
+
+                                                var key = Object.keys(obj);
+                                                var len = key.length;
+
+                                                web_structure = (len - 2) + " sections on the page are "
+
+                                                var count = 1;
+                                                for (var key in obj) {
+                                                    if (count == (len - 2)) {
+                                                        break
+                                                    }
+                                                    var ad = count + " " + key;
+                                                    web_structure += ad;
+                                                    count++;
+                                                }
+
+                                                localStorage.setItem("myJson", response_global);
+                                            }
+                                        };
+                                    });
+                                });
+                                web_st += web_structure
+                            }
+                            // localStorage.clear();
+                            utterance = new SpeechSynthesisUtterance(web_st);
+                        }
+                        // vision give website structure
+                        else if (event.results[i][0].transcript.toLowerCase().trim().includes("give website structure")) {
+                            // var msg = "Wikipedia page for " + main_heading + " is open. " + "Page consists of " + (len - 2) + " sections. ";
+                            var web_st = "";
+
+                            if (localStorage.getItem("myJson") !== null) {
+                                var passedJson = localStorage.getItem("myJson"); //get saved data anytime
+                                var obj = JSON.parse(passedJson);
+                                // console.log(obj)
+
+                                var key = Object.keys(obj);
+                                var len = key.length;
+                                var main_heading = Object.keys(obj)[len - 1];
+
+                                var web_structure = "Wikipedia page for " + main_heading + " is open. " + "Page consists of " + (len - 2) + " sections. "
+
+                                var count = 1;
+                                for (var key in obj) {
+                                    if (key === 'See also') {
+                                        break
+                                    }
+                                    var app_txt = "Section " + count + " is about '" + key + "' consisting of " + obj[key]['para'].length + " paragraphs and " + obj[key]['images'].length + " images. "
+                                    web_structure += app_txt;
+                                    count++;
+                                }
+                                web_st += web_structure
+                                // localStorage.clear();
+                            } else {
+                                var response_global = ""
+                                var web_structure
+
+                                window.addEventListener('DOMContentLoaded', (event) => {
+
+                                    var url = "fetching url";
+
+                                    chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+                                        url = tabs[0].url
+
+                                        var xhttp = new XMLHttpRequest();
+
+                                        xhttp.open("POST", "http://127.0.0.1:5000/read_page");
+                                        xhttp.send("url=" + tabs[0].url);
+
+
+                                        xhttp.onreadystatechange = function () {
+                                            if (this.readyState == 4 && this.status == 200) {
+                                                response_global = this.responseText;
+
+                                                var obj = JSON.parse(response_global);
+
+                                                // console.log(obj);
+
+                                                var key = Object.keys(obj);
+                                                var len = key.length;
+                                                var main_heading = Object.keys(obj)[len - 1];
+
+                                                web_structure = "Wikipedia page for " + main_heading + " is open. " + "Page consists of " + (len - 2) + " sections. "
+
+                                                var count = 1;
+                                                for (var key in obj) {
+                                                    if (key === 'See also') {
+                                                        break
+                                                    }
+                                                    var app_txt = "Section " + count + " is about '" + key + "' consisting of " + obj[key]['para'].length + " paragraphs and " + obj[key]['images'].length + " images. "
+                                                    web_structure += app_txt;
+                                                    count++;
+                                                }
+
+                                                localStorage.setItem("myJson", response_global);
+                                            }
+                                        };
+                                    });
+                                });
+                                web_st += web_structure
+                            }
+                            // localStorage.clear();
+                            utterance = new SpeechSynthesisUtterance(web_st);
+                        }
+                        // Vision initiate web content
+                        else if (event.results[i][0].transcript.toLowerCase().trim().includes("initiate web content")) {
+                            utterance = new SpeechSynthesisUtterance("web content initiated, what would you like to read? A paragraph from a particular section or an image from a particular section.");
+                        }
+                        // vision read section {section_name}
+                        else if (event.results[i][0].transcript.toLowerCase().trim().includes("read section")) {
+                            var requestedInput = event.results[i][0].transcript.toLowerCase().trim().substr(19, event.results[i][0].transcript.toLowerCase().trim().length - 1).trim();
+                            // var msg = "Wikipedia page for " + main_heading + " is open. " + "Page consists of " + (len - 2) + " sections. ";
+                            var web_st = "";
+
+                            if (localStorage.getItem("myJson") !== null) {
+                                var passedJson = localStorage.getItem("myJson"); //get saved data anytime
+                                var obj = JSON.parse(passedJson);
+                                // console.log(obj)
+
+                                var key = Object.keys(obj);
+                                var len = key.length;
+
+                                var web_content = ""
+
+                                // Displays section heading and all its paragraphs
+                                for (var key in obj) {
+                                    if (key.toLowerCase() === requestedInput) {
+                                        web_content += "Reading Section " + key + " ";
+                                        if (obj[key]['para'].length > 0) {
+                                            for (var para in obj[key]['para']) {
+                                                web_content += obj[key]['para'][para] + " ";
+                                            }
+                                        }
+                                    }
+                                }
+                                web_st += web_content;
+                            } else {
+                                var response_global = ""
+                                var web_content
+
+                                window.addEventListener('DOMContentLoaded', (event) => {
+
+                                    var url = "fetching url";
+
+                                    chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+                                        url = tabs[0].url
+
+                                        var xhttp = new XMLHttpRequest();
+
+                                        xhttp.open("POST", "http://127.0.0.1:5000/read_page");
+                                        xhttp.send("url=" + tabs[0].url);
+
+
+                                        xhttp.onreadystatechange = function () {
+                                            if (this.readyState == 4 && this.status == 200) {
+                                                response_global = this.responseText;
+
+
+                                                var obj = JSON.parse(response_global);
+
+                                                // console.log(obj);
+
+                                                var key = Object.keys(obj);
+                                                var len = key.length;
+
+                                                web_content = ""
+
+                                                // Displays section heading and all its paragraphs
+                                                for (var key in obj) {
+                                                    if (key.toLowerCase() === requestedInput) {
+                                                        web_content += "Reading Section " + key + " ";
+                                                        if (obj[key]['para'].length > 0) {
+                                                            for (var para in obj[key]['para']) {
+                                                                web_content += obj[key]['para'][para] + " ";
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                localStorage.setItem("myJson", response_global);
+                                            }
+                                        };
+                                    });
+                                });
+                                web_st += web_content
+                            }
+                            // localStorage.clear();
+                            // utterance = new SpeechSynthesisUtterance(requestedInput);
+                            utterance = new SpeechSynthesisUtterance(web_st);
+                            // console.log(requestedInput);
+                        }
+                        // vision read paragraph one of section {section_name}
+                        else if (event.results[i][0].transcript.toLowerCase().trim().includes("read para")) {
+                            var requestedPara = event.results[i][0].transcript.toLowerCase().trim().substr(event.results[i][0].transcript.toLowerCase().trim().indexOf("para") + 4, event.results[i][0].transcript.toLowerCase().trim().indexOf("of") - 17);
+                            var requestedSection = event.results[i][0].transcript.toLowerCase().trim().substr(event.results[i][0].transcript.toLowerCase().trim().indexOf("section") + 8, event.results[i][0].transcript.toLowerCase().trim().length - 1);
+                            // var v_msg = "Want to read paragraph " + parseInt(requestedPara) + " of section " + requestedSection + ".";
+                            var web_st = "";
+
+                            if (localStorage.getItem("myJson") !== null) {
+                                var passedJson = localStorage.getItem("myJson"); //get saved data anytime
+                                var obj = JSON.parse(passedJson);
+                                // console.log(obj)
+
+                                var key = Object.keys(obj);
+                                var len = key.length;
+
+                                var web_content = ""
+
+                                // Displays section heading and all its paragraphs
+                                for (var key in obj) {
+                                    if (key.toLowerCase() === requestedSection) {
+                                        if (obj[key]['para'].length > 0) {
+                                            web_content += "Reading paragraph " + requestedPara + " of section " + key + ". ";
+                                            var para_no = 1;
+                                            for (var para in obj[key]['para']) {
+                                                if (para_no === parseInt(requestedPara)) {
+                                                    web_content += obj[key]['para'][para] + " ";
+                                                }
+                                                para_no++;
+                                            }
+                                        } else {
+                                            web_content += "This section do not contain any paragraph";
+                                        }
+                                    }
+                                }
+                                web_st += web_content;
+                            } else {
+                                var response_global = ""
+                                var web_content
+
+                                window.addEventListener('DOMContentLoaded', (event) => {
+
+                                    var url = "fetching url";
+
+                                    chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+                                        url = tabs[0].url
+
+                                        var xhttp = new XMLHttpRequest();
+
+                                        xhttp.open("POST", "http://127.0.0.1:5000/read_page");
+                                        xhttp.send("url=" + tabs[0].url);
+
+
+                                        xhttp.onreadystatechange = function () {
+                                            if (this.readyState == 4 && this.status == 200) {
+                                                response_global = this.responseText;
+
+
+                                                var obj = JSON.parse(response_global);
+
+                                                // console.log(obj);
+
+                                                var key = Object.keys(obj);
+                                                var len = key.length;
+
+                                                web_content = ""
+
+                                                // Displays section heading and all its paragraphs
+                                                for (var key in obj) {
+                                                    if (key.toLowerCase() === requestedSection) {
+                                                        if (obj[key]['para'].length > 0) {
+                                                            web_content += "Reading paragraph " + requestedPara + " of section " + key + ". ";
+                                                            var para_no = 1;
+                                                            for (var para in obj[key]['para']) {
+                                                                if (para_no === parseInt(requestedPara)) {
+                                                                    web_content += obj[key]['para'][para] + " ";
+                                                                }
+                                                                para_no++;
+                                                            }
+                                                        } else {
+                                                            web_content += "This section do not contain any paragraph";
+                                                        }
+                                                    }
+                                                }
+                                                localStorage.setItem("myJson", response_global);
+                                            }
+                                        };
+                                    });
+                                });
+                                web_st += web_content
+                            }
+                            // localStorage.clear();
+                            // utterance = new SpeechSynthesisUtterance(requestedInput);
+                            utterance = new SpeechSynthesisUtterance(web_st);
+                            // utterance = new SpeechSynthesisUtterance(v_msg);
+                        }
+                        // vision read all images of section {section_name}
+                        else if (event.results[i][0].transcript.toLowerCase().trim().includes("read all images of section")) {
+                            var requestedInput = event.results[i][0].transcript.toLowerCase().trim().substr(33, event.results[i][0].transcript.toLowerCase().trim().length - 1).trim();
+                            // var msg = "Wikipedia page for " + main_heading + " is open. " + "Page consists of " + (len - 2) + " sections. ";
+                            var web_st = "";
+
+                            if (localStorage.getItem("myJson") !== null) {
+                                var passedJson = localStorage.getItem("myJson"); //get saved data anytime
+                                var obj = JSON.parse(passedJson);
+                                // console.log(obj)
+
+                                var key = Object.keys(obj);
+                                var len = key.length;
+
+                                var web_content = ""
+
+                                // Displays section heading and all its paragraphs
+                                for (var key in obj) {
+                                    if (key.toLowerCase() === requestedInput) {
+                                        web_content += "Reading images of section " + key + ". ";
+                                        if (obj[key]['images'].length > 0) {
+                                            var img_no = 1;
+                                            for (var img in obj[key]['images']) {
+                                                web_content += "Reading image " + img_no + ". " + obj[key]['images'][img] + "...    ";
+                                                img_no++;
+                                            }
+                                        }
+                                    }
+                                }
+                                web_st += web_content;
+                            } else {
+                                var response_global = ""
+                                var web_content
+
+                                window.addEventListener('DOMContentLoaded', (event) => {
+
+                                    var url = "fetching url";
+
+                                    chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+                                        url = tabs[0].url
+
+                                        var xhttp = new XMLHttpRequest();
+
+                                        xhttp.open("POST", "http://127.0.0.1:5000/read_page");
+                                        xhttp.send("url=" + tabs[0].url);
+
+
+                                        xhttp.onreadystatechange = function () {
+                                            if (this.readyState == 4 && this.status == 200) {
+                                                response_global = this.responseText;
+
+
+                                                var obj = JSON.parse(response_global);
+
+                                                // console.log(obj);
+
+                                                var key = Object.keys(obj);
+                                                var len = key.length;
+
+                                                web_content = ""
+
+                                                // Displays section heading and all its paragraphs
+                                                for (var key in obj) {
+                                                    if (key.toLowerCase() === requestedInput) {
+                                                        web_content += "Reading images of section " + key + ". ";
+                                                        if (obj[key]['images'].length > 0) {
+                                                            var img_no = 1;
+                                                            for (var img in obj[key]['images']) {
+                                                                web_content += "Reading image " + img_no + ". " + obj[key]['images'][img] + "...    ";
+                                                                img_no++;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                localStorage.setItem("myJson", response_global);
+                                            }
+                                        };
+                                    });
+                                });
+                                web_st += web_content
+                            }
+                            // localStorage.clear();
+                            // utterance = new SpeechSynthesisUtterance(requestedInput);
+                            utterance = new SpeechSynthesisUtterance(web_st);
+                            // console.log(requestedInput);
+                        }
+                        // vision read image one of section {section_name}
+                        else if (event.results[i][0].transcript.toLowerCase().trim().includes("read image")) {
+                            var requestedImg = event.results[i][0].transcript.toLowerCase().trim().substr(event.results[i][0].transcript.toLowerCase().trim().indexOf("image") + 6, event.results[i][0].transcript.toLowerCase().trim().indexOf("of") - 19);
+                            var requestedSection = event.results[i][0].transcript.toLowerCase().trim().substr(event.results[i][0].transcript.toLowerCase().trim().indexOf("section") + 8, event.results[i][0].transcript.toLowerCase().trim().length - 1);
+                            // var v_msg = "Want to read paragraph " + parseInt(requestedImg) + " of section " + requestedSection + ".";
+                            var web_st = "";
+
+                            if (localStorage.getItem("myJson") !== null) {
+                                var passedJson = localStorage.getItem("myJson"); //get saved data anytime
+                                var obj = JSON.parse(passedJson);
+                                // console.log(obj)
+
+                                var key = Object.keys(obj);
+                                var len = key.length;
+
+                                var web_content = ""
+
+                                // Displays section heading and all its paragraphs
+                                for (var key in obj) {
+                                    if (key.toLowerCase() === requestedSection) {
+                                        if (obj[key]['images'].length > 0) {
+                                            web_content += "Reading image " + requestedImg + " of section " + key + ". ";
+                                            var para_no = 1;
+                                            for (var para in obj[key]['images']) {
+                                                if (para_no === parseInt(requestedImg)) {
+                                                    web_content += obj[key]['images'][para] + " ";
+                                                }
+                                                para_no++;
+                                            }
+                                        } else {
+                                            web_content += "This section do not contain any image";
+                                        }
+                                    }
+                                }
+                                web_st += web_content;
+                            } else {
+                                var response_global = ""
+                                var web_content
+
+                                window.addEventListener('DOMContentLoaded', (event) => {
+
+                                    var url = "fetching url";
+
+                                    chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+                                        url = tabs[0].url
+
+                                        var xhttp = new XMLHttpRequest();
+
+                                        xhttp.open("POST", "http://127.0.0.1:5000/read_page");
+                                        xhttp.send("url=" + tabs[0].url);
+
+
+                                        xhttp.onreadystatechange = function () {
+                                            if (this.readyState == 4 && this.status == 200) {
+                                                response_global = this.responseText;
+
+
+                                                var obj = JSON.parse(response_global);
+
+                                                // console.log(obj);
+
+                                                var key = Object.keys(obj);
+                                                var len = key.length;
+
+                                                web_content = ""
+
+                                                // Displays section heading and all its paragraphs
+                                                for (var key in obj) {
+                                                    if (key.toLowerCase() === requestedSection) {
+                                                        if (obj[key]['images'].length > 0) {
+                                                            web_content += "Reading image " + requestedImg + " of section " + key + ". ";
+                                                            var para_no = 1;
+                                                            for (var para in obj[key]['images']) {
+                                                                if (para_no === parseInt(requestedImg)) {
+                                                                    web_content += obj[key]['images'][para] + " ";
+                                                                }
+                                                                para_no++;
+                                                            }
+                                                        } else {
+                                                            web_content += "This section do not contain any image";
+                                                        }
+                                                    }
+                                                }
+                                                localStorage.setItem("myJson", response_global);
+                                            }
+                                        };
+                                    });
+                                });
+                                web_st += web_content
+                            }
+                            // localStorage.clear();
+                            // utterance = new SpeechSynthesisUtterance(requestedInput);
+                            utterance = new SpeechSynthesisUtterance(web_st);
+                            // utterance = new SpeechSynthesisUtterance(v_msg);
+                        }
+                        //vision a paragraph from particular section
+                        else if (event.results[i][0].transcript.toLowerCase().trim().includes("paragraph")) {
+                            utterance = new SpeechSynthesisUtterance("To read a paragraph from particular section, give command like read paragraph one of section {section_name}. To read all paragraph from a particular section, give command read all paragraph of section {section_name}.");
+                        }
+                        //vision an image from particular section
+                        else if (event.results[i][0].transcript.toLowerCase().trim().includes("image")) {
+                            utterance = new SpeechSynthesisUtterance("To get discription of an image from particular section, give command like read image one of section {section_name}. To read all images from a particular section, give command read all images of section {section_name}.");
+                        }
                         // activate
                         else if (event.results[i][0].transcript.toLowerCase().trim().includes("activate")) {
                             var utterance = new SpeechSynthesisUtterance("Trinayan activated.");
                         }
                         // guide
                         else if (event.results[i][0].transcript.toLowerCase().trim().includes("guide")) {
-                            // var utterance = new SpeechSynthesisUtterance(`1) chrome help
+                            // var utterance = new SpeechSynthesisUtterance(`1) vision help
                             // Opens a page with all commands currently available in TriNayan, complete with a description and example if needed.
 
-                            // 2) chrome new tab
+                            // 2) vision new tab
                             // Opens a new tab to chrome://newtab.
 
-                            // 3) chrome close tab
+                            // 3) vision close tab
                             // Closes the active tab.
 
-                            // 4) chrome close chrome
+                            // 4) vision close chrome
                             // Closes Google Chrome.
 
-                            // 5) chrome go to {URL}
+                            // 5) vision go to {URL}
                             // Redirects the active tab to {URL}.
-                            // e.g. chrome go to reddit.com
+                            // e.g. vision go to reddit.com
 
-                            // 6) chrome scroll down
+                            // 6) vision scroll down
                             // Scrolls down the active web page by the height of the window minus 100 pixels.
 
-                            // 7) chrome scroll up
+                            // 7) vision scroll up
                             // Scrolls up the active web page by the height of the window minus 100 pixels.
 
-                            // 8) chrome back/chrome go back
+                            // 8) vision back/vision go back
                             // Redirects the active tab back one page in history.
 
-                            // 9) chrome forward/chrome go forward
+                            // 9) vision forward/vision go forward
                             // Redirects the active tab forward one page in history.
 
-                            // 10) chrome tab {TAB NUMBER}/chrome go to tab {TAB NUMBER}
+                            // 10) vision tab {TAB NUMBER}/vision go to tab {TAB NUMBER}
                             // Changes the active tab to the {TAB NUMBER}.
-                            // e.g. chrome go to tab 2
+                            // e.g. vision go to tab 2
 
-                            // 11) chrome click on {LINK}
+                            // 11) vision click on {LINK}
                             // Searches the active web page for the {LINK}.{LINK} can be just a snippet of the wanted link. Note that this command will not work for all web pages.
-                            // e.g. chrome click on home
+                            // e.g. vision click on home
 
-                            // 12) chrome click on {LINK} no spaces
+                            // 12) vision click on {LINK} no spaces
                             // Searches the active web page for the {LINK} as all one word.{LINK} can be just a snippet of the wanted link. Note that this command will not work for all web pages.
-                            // e.g. chrome click on navi voice no spaces
+                            // e.g. vision click on navi voice no spaces
 
-                            // 13) chrome input {STRING}/chrome search {STRING}
+                            // 13) vision input {STRING}/vision search {STRING}
                             // Fills the first text input field (if found) with {STRING}.
-                            // e.g. chrome search funny cat
+                            // e.g. vision search funny cat
 
-                            // 14) chrome explicit input {STRING} into {FIELD}/chrome explicitly input {STRING} into {FIELD}
+                            // 14) vision explicit input {STRING} into {FIELD}/vision explicitly input {STRING} into {FIELD}
                             // Searches the active web page for a text field with the {FIELD} placeholder text and enters {STRING} into it. Useful if more than one text input field on web page.
-                            // e.g. chrome explicitly input nice picture into comment
+                            // e.g. vision explicitly input nice picture into comment
 
-                            // 15) chrome submit/chrome search/chrome enter
-                            // Submits the first text input field (if found) in the active web page. Usually used in conjunction with chrome input {STRING}/chrome search {STRING}.
+                            // 15) vision submit/vision search/vision enter
+                            // Submits the first text input field (if found) in the active web page. Usually used in conjunction with vision input {STRING}/vision search {STRING}.
 
-                            // 16) chrome google {STRING}
+                            // 16) vision google {STRING}
                             // Googles {STRING}.
-                            // e.g. chrome google dank memes
+                            // e.g. vision google dank memes
 
-                            // 17) chrome stop speaking
+                            // 17) vision stop speaking
                             // Mutes the voice of TriNayan.
 
-                            // 18) chrome start speaking
+                            // 18) vision start speaking
                             // Unmutes the voice of TriNayan.
 
-                            // 19) chrome toggle
-                            // Remove the 'chrome' prefix from commands. Commands are spoken as usual but without the 'chrome' prefix.
+                            // 19) vision toggle
+                            // Remove the 'vision ' prefix from commands. Commands are spoken as usual but without the 'vision ' prefix.
 
                             // 20) toggle
-                            // Add the 'chrome' prefix to commands. Commands are spoken as usual but with the 'chrome' prefix.
+                            // Add the 'vision ' prefix to commands. Commands are spoken as usual but with the 'vision ' prefix.
 
-                            // 21) chrome play video
+                            // 21) vision play video
                             // Plays a YouTube video on the current page.
 
-                            // 22) chrome pause video
+                            // 22) vision pause video
                             // Pauses a YouTube video on the current page.
 
-                            // 23) chrome mute video
+                            // 23) vision mute video
                             // Mutes a YouTube video on the current page.
 
-                            // 24) chrome calculate {FORMULA}
+                            // 24) vision calculate {FORMULA}
                             // Calculates a mathematical formula. At this time, the command will only work with "add", "subtract", "multiplied by", and "divided by".
-                            // e.g. chrome calculate five plus two times seven`);
-                            var utterance = new SpeechSynthesisUtterance(`1) chrome help
+                            // e.g. vision calculate five plus two times seven`);
+                            var utterance = new SpeechSynthesisUtterance(`1) vision help
                             Opens a page with all commands currently available in TriNayan, complete with a description and example if needed.
                             
-                            2) chrome new tab
+                            2) vision new tab
                             Opens a new tab to chrome://newtab.`);
                         }
                         // go to
@@ -1450,6 +2056,26 @@ else {
                             var voice = 'off';
                             chrome.storage.sync.set({ 'voice': voice });
                         }
+                        // skip
+                        else if (event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1).startsWith("skip")) {
+                            chrome.tabs.executeScript(null, { file: "scripts/jquery-3.1.1.min.js" }, function () {
+                                chrome.tabs.executeScript({
+                                    code: "$('.Tg7LZd')[0].click();"
+                                    //$('button[type=\"submit\"]').trigger('click');
+                                });
+                            });
+                            utterance = new SpeechSynthesisUtterance("skiping advertisement.");
+                        }
+                        // open a new document
+                        else if (event.results[i][0].transcript.toLowerCase().trim().substr(7, event.results[i][0].transcript.trim().length - 1).startsWith("open a new document")) {
+                            chrome.tabs.executeScript(null, { file: "scripts/jquery-3.1.1.min.js" }, function () {
+                                chrome.tabs.executeScript({
+                                    code: "$('.docs-homescreen-templates-templateview-preview')[0].click();"
+                                    //$('button[type=\"submit\"]').trigger('click');
+                                });
+                            });
+                            utterance = new SpeechSynthesisUtterance("Opening a new document.");
+                        }
                         // help
                         else if (event.results[i][0].transcript.toLowerCase().trim() == "help") {
                             window.open("https://trinayan.netlify.app/")
@@ -1459,7 +2085,7 @@ else {
                         else if (event.results[i][0].transcript.toLowerCase().trim() == "toggle") {
                             var prefix = 'on';
                             chrome.storage.sync.set({ 'prefix': prefix });
-                            utterance = new SpeechSynthesisUtterance("Prefix has been turned on. You will now say commands with the 'chrome' prefix.");
+                            utterance = new SpeechSynthesisUtterance("Prefix has been turned on. You will now say commands with the 'vision ' prefix.");
                         }
                         // othello reversi
                         // else if (event.results[i][0].transcript.toLowerCase().trim() == "othello reversi") {
@@ -1544,7 +2170,7 @@ else {
                                 chrome.management.setEnabled(result.id, false)
                             });
                         }
-                        // chrome change theme
+                        // vision change theme
                         // else if (event.results[i][0].transcript.toLowerCase().trim().includes("change")) {
                         //     chrome.tabs.executeScript({
                         //         file: 'theme.js'

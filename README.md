@@ -8,8 +8,7 @@
 * [Toolchain](#toolchain)
 * [Features](#features)
 * [Application Overview](#overview)
-* [Learnings](#learning)
-* [Challenges faced](#challenges)
+* [Learnings](#learning) <!-- * [Challenges faced](#challenges) -->
 * [Future Scope/ What's next?](#scope)
 * [Setup](#setup)
 * [Authors](#authors)
@@ -67,9 +66,11 @@
 - Grasped the way of reading web page by running web scraping model in backend and caching the retrieved data.
 - Got to know the way of integrating all the feature into one web extension.
 
+<!--
 <a id="challenges"></a>
 ## 💡 Challenges faced
 - Faced problem while integrating voice command for reading the webpage and giving back output.
+-->
 
 <a id="scope"></a>
 ## 🚧 Future Scope/ What's next?

@@ -7,7 +7,7 @@
 ### 📌 Table of Contents
 * [Toolchain](#toolchain)
 * [Features](#features)
-* [Application Overview](#overview)
+* [Web Extension Overview](#overview)
 * [Learnings](#learning) <!-- * [Challenges faced](#challenges) -->
 * [Future Scope/ What's next?](#scope)
 * [Setup](#setup)
@@ -41,23 +41,25 @@
 
 ## 📖 Chrome Extension Overview
 ### Home Page
-![Website Image]()
+![homepage](https://user-images.githubusercontent.com/74755065/186577349-457ed2d6-df6f-462d-ac9d-63f0b815ef8e.PNG)
 ### Web Reader Page
-![Website Image]()
+![reader](https://user-images.githubusercontent.com/74755065/186577153-58f4752e-b956-431c-a2e3-74fda18fd17a.PNG)
 ### Web customizer Page
-![Website Image]()
+![costumizer](https://user-images.githubusercontent.com/74755065/186577252-3010caa1-c80d-4308-97de-9a31aaf7f90f.PNG)
 ### Web Browser controller Page
-![Website Image]()
+![controller](https://user-images.githubusercontent.com/74755065/186577296-3f65dbf4-30fc-49fd-a571-e781081fe34b.PNG)
 
 ## 📖 Website Overview
 ### Home Page
-![Website Image]()
+![website](https://user-images.githubusercontent.com/74755065/186577403-f0207673-817c-4a88-beb5-9fa8ba56d4e2.PNG)
+<!--
 ### Email Feature
 ![Website Image]()
 ### Help Bot Feature
 ![Website Image]()
 ### Multilingual Feature
 ![Website Image]()
+-->
 
 <a id="learning"></a>
 ## 💡 Learnings

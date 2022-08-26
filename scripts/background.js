@@ -99,217 +99,424 @@ else {
                             }
                             // vision current page
                             else if (event.results[i][0].transcript.toLowerCase().trim().includes("current page")) {
-                                // var msg = "Wikipedia page for " + main_heading + " is open. " + "Page consists of " + (len - 2) + " sections. ";
-                                var web_st = "";
+                                chrome.tabs.query({ 'active': true, 'lastFocusedWindow': true }, function (tabs) {
+                                    var url = tabs[0].url;
+                                    if (url.startsWith("https://en.wikipedia.org/")) {
+                                        var web_st = "";
 
-                                if (localStorage.getItem("myJson") !== null) {
-                                    var passedJson = localStorage.getItem("myJson"); //get saved data anytime
-                                    var obj = JSON.parse(passedJson);
-                                    // console.log(obj)
+                                        if (localStorage.getItem("myJson") !== null) {
+                                            var passedJson = localStorage.getItem("myJson"); //get saved data anytime
+                                            var obj = JSON.parse(passedJson);
+                                            // console.log(obj)
 
-                                    var key = Object.keys(obj);
-                                    var len = key.length;
-                                    var main_heading = Object.keys(obj)[len - 1];
+                                            var key = Object.keys(obj);
+                                            var len = key.length;
+                                            var main_heading = Object.keys(obj)[len - 1];
 
-                                    var web_structure = "Wikipedia page for " + main_heading + " is open. "
+                                            var web_structure = "Wikipedia page for " + main_heading + " is open. "
 
-                                    web_st += web_structure
-                                    // localStorage.clear();
-                                } else {
-                                    var response_global = ""
-                                    var web_structure
+                                            web_st += web_structure
+                                            // localStorage.clear();
+                                        } else {
+                                            var response_global = ""
+                                            var web_structure
 
-                                    window.addEventListener('DOMContentLoaded', (event) => {
+                                            window.addEventListener('DOMContentLoaded', (event) => {
 
-                                        var url = "fetching url";
+                                                var url = "fetching url";
 
-                                        chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
-                                            url = tabs[0].url
+                                                chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+                                                    url = tabs[0].url
 
-                                            var xhttp = new XMLHttpRequest();
+                                                    var xhttp = new XMLHttpRequest();
 
-                                            xhttp.open("POST", "http://127.0.0.1:5000/read_page");
-                                            xhttp.send("url=" + tabs[0].url);
+                                                    xhttp.open("POST", "http://127.0.0.1:5000/read_page");
+                                                    xhttp.send("url=" + tabs[0].url);
 
 
-                                            xhttp.onreadystatechange = function () {
-                                                if (this.readyState == 4 && this.status == 200) {
-                                                    response_global = this.responseText;
+                                                    xhttp.onreadystatechange = function () {
+                                                        if (this.readyState == 4 && this.status == 200) {
+                                                            response_global = this.responseText;
 
-                                                    var obj = JSON.parse(response_global);
+                                                            var obj = JSON.parse(response_global);
 
-                                                    // console.log(obj);
+                                                            // console.log(obj);
 
-                                                    var key = Object.keys(obj);
-                                                    var len = key.length;
-                                                    var main_heading = Object.keys(obj)[len - 1];
-                                                    document.getElementById("header1").innerHTML = "URL:" + url;
+                                                            var key = Object.keys(obj);
+                                                            var len = key.length;
+                                                            var main_heading = Object.keys(obj)[len - 1];
+                                                            document.getElementById("header1").innerHTML = "URL:" + url;
 
-                                                    web_structure = "Wikipedia page for " + main_heading + " is open. "
+                                                            web_structure = "Wikipedia page for " + main_heading + " is open. "
 
-                                                    localStorage.setItem("myJson", response_global);
+                                                            localStorage.setItem("myJson", response_global);
+                                                        }
+                                                    };
+                                                });
+                                            });
+                                            web_st += web_structure
+                                        }
+                                        // localStorage.clear();
+                                        utterance = new SpeechSynthesisUtterance(web_st);
+                                    } else {
+                                        var web_st = "";
+
+                                        if (localStorage.getItem("myJson") !== null) {
+                                            var passedJson = localStorage.getItem("myJson"); //get saved data anytime
+                                            var obj = JSON.parse(passedJson);
+                                            // console.log(obj)
+
+                                            var key = Object.keys(obj);
+                                            var len = key.length;
+                                            var main_heading;
+                                            for (var key in obj) {
+                                                if (key === '0') {
+                                                    main_heading = obj[key];
+                                                    break;
                                                 }
-                                            };
-                                        });
-                                    });
-                                    web_st += web_structure
-                                }
-                                // localStorage.clear();
-                                utterance = new SpeechSynthesisUtterance(web_st);
+                                            }
+
+                                            var web_structure = "Webpage for " + main_heading + " is open. ";
+                                            // var len = key.length;
+                                            // var main_heading = Object.keys(obj)[len - 1];
+
+                                            // var web_structure = "Wikipedia page for " + main_heading + " is open. "
+
+                                            web_st += web_structure
+                                            // localStorage.clear();
+                                        } else {
+                                            var response_global = ""
+                                            var web_structure
+
+                                            window.addEventListener('DOMContentLoaded', (event) => {
+
+                                                var url = "fetching url";
+
+                                                chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+                                                    url = tabs[0].url
+
+                                                    var xhttp = new XMLHttpRequest();
+
+                                                    xhttp.open("POST", "http://127.0.0.1:5000/read_page");
+                                                    xhttp.send("url=" + tabs[0].url);
+
+
+                                                    xhttp.onreadystatechange = function () {
+                                                        if (this.readyState == 4 && this.status == 200) {
+                                                            response_global = this.responseText;
+
+                                                            var obj = JSON.parse(response_global);
+
+                                                            // console.log(obj);
+
+                                                            var key = Object.keys(obj);
+                                                            var len = key.length;
+                                                            var main_heading = obj['0'];
+
+                                                            web_structure = "Web page for " + main_heading + " is open. ";
+
+                                                            localStorage.setItem("myJson", response_global);
+                                                        }
+                                                    };
+                                                });
+                                            });
+                                            web_st += web_structure
+                                        }
+                                        // localStorage.clear();
+                                        utterance = new SpeechSynthesisUtterance(web_st);
+                                    }
+                                });
                             }
                             // vision give sections (tells only the different section on the page)
                             else if (event.results[i][0].transcript.toLowerCase().trim().includes("give page sections")) {
                                 // var msg = "Wikipedia page for " + main_heading + " is open. " + "Page consists of " + (len - 2) + " sections. ";
-                                var web_st = "";
+                                chrome.tabs.query({ 'active': true, 'lastFocusedWindow': true }, function (tabs) {
+                                    var url = tabs[0].url;
+                                    if (url.startsWith("https://en.wikipedia.org/")) {
+                                        var web_st = "";
 
-                                if (localStorage.getItem("myJson") !== null) {
-                                    var passedJson = localStorage.getItem("myJson"); //get saved data anytime
-                                    var obj = JSON.parse(passedJson);
-                                    // console.log(obj)
+                                        if (localStorage.getItem("myJson") !== null) {
+                                            var passedJson = localStorage.getItem("myJson"); //get saved data anytime
+                                            var obj = JSON.parse(passedJson);
+                                            // console.log(obj)
 
-                                    var key = Object.keys(obj);
-                                    var len = key.length;
+                                            var key = Object.keys(obj);
+                                            var len = key.length;
 
-                                    var web_structure = (len - 2) + " sections on the page are "
+                                            var web_structure = (len - 2) + " sections on the page are "
 
-                                    var count = 1;
-                                    for (var key in obj) {
-                                        if (count == (len - 2)) {
-                                            break
-                                        }
-                                        var ad = count + " " + key;
-                                        web_structure += ad;
-                                        count++;
-                                    }
-                                    web_st += web_structure
-                                    // localStorage.clear();
-                                } else {
-                                    var response_global = ""
-                                    var web_structure
-
-                                    window.addEventListener('DOMContentLoaded', (event) => {
-
-                                        var url = "fetching url";
-
-                                        chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
-                                            url = tabs[0].url
-
-                                            var xhttp = new XMLHttpRequest();
-
-                                            xhttp.open("POST", "http://127.0.0.1:5000/read_page");
-                                            xhttp.send("url=" + tabs[0].url);
-
-
-                                            xhttp.onreadystatechange = function () {
-                                                if (this.readyState == 4 && this.status == 200) {
-                                                    response_global = this.responseText;
-
-                                                    var obj = JSON.parse(response_global);
-
-                                                    // console.log(obj);
-
-                                                    var key = Object.keys(obj);
-                                                    var len = key.length;
-
-                                                    web_structure = (len - 2) + " sections on the page are "
-
-                                                    var count = 1;
-                                                    for (var key in obj) {
-                                                        if (count == (len - 2)) {
-                                                            break
-                                                        }
-                                                        var ad = count + " " + key;
-                                                        web_structure += ad;
-                                                        count++;
-                                                    }
-
-                                                    localStorage.setItem("myJson", response_global);
+                                            var count = 1;
+                                            for (var key in obj) {
+                                                if (count == (len - 2)) {
+                                                    break
                                                 }
-                                            };
-                                        });
-                                    });
-                                    web_st += web_structure
-                                }
-                                // localStorage.clear();
-                                utterance = new SpeechSynthesisUtterance(web_st);
+                                                var ad = count + " " + key;
+                                                web_structure += ad;
+                                                count++;
+                                            }
+                                            web_st += web_structure
+                                            // localStorage.clear();
+                                        } else {
+                                            var response_global = ""
+                                            var web_structure
+
+                                            window.addEventListener('DOMContentLoaded', (event) => {
+
+                                                var url = "fetching url";
+
+                                                chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+                                                    url = tabs[0].url
+
+                                                    var xhttp = new XMLHttpRequest();
+
+                                                    xhttp.open("POST", "http://127.0.0.1:5000/read_page");
+                                                    xhttp.send("url=" + tabs[0].url);
+
+
+                                                    xhttp.onreadystatechange = function () {
+                                                        if (this.readyState == 4 && this.status == 200) {
+                                                            response_global = this.responseText;
+
+                                                            var obj = JSON.parse(response_global);
+
+                                                            // console.log(obj);
+
+                                                            var key = Object.keys(obj);
+                                                            var len = key.length;
+
+                                                            web_structure = (len - 2) + " sections on the page are "
+
+                                                            var count = 1;
+                                                            for (var key in obj) {
+                                                                if (count == (len - 2)) {
+                                                                    break
+                                                                }
+                                                                var ad = count + " " + key;
+                                                                web_structure += ad;
+                                                                count++;
+                                                            }
+
+                                                            localStorage.setItem("myJson", response_global);
+                                                        }
+                                                    };
+                                                });
+                                            });
+                                            web_st += web_structure
+                                        }
+                                        // localStorage.clear();
+                                        utterance = new SpeechSynthesisUtterance(web_st);
+                                    } else {
+                                        var web_st = "";
+
+                                        if (localStorage.getItem("myJson") !== null) {
+                                            var passedJson = localStorage.getItem("myJson"); //get saved data anytime
+                                            var obj = JSON.parse(passedJson);
+                                            // console.log(obj)
+
+                                            var key = Object.keys(obj);
+                                            var len = key.length;
+
+                                            var web_structure = "Page consists of " + (len - 1) + " sections. ";
+                                            // var len = key.length;
+                                            // var main_heading = Object.keys(obj)[len - 1];
+
+                                            // var web_structure = "Wikipedia page for " + main_heading + " is open. "
+
+                                            web_st += web_structure
+                                            // localStorage.clear();
+                                        } else {
+                                            var response_global = ""
+                                            var web_structure
+
+                                            window.addEventListener('DOMContentLoaded', (event) => {
+
+                                                var url = "fetching url";
+
+                                                chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+                                                    url = tabs[0].url
+
+                                                    var xhttp = new XMLHttpRequest();
+
+                                                    xhttp.open("POST", "http://127.0.0.1:5000/read_page");
+                                                    xhttp.send("url=" + tabs[0].url);
+
+
+                                                    xhttp.onreadystatechange = function () {
+                                                        if (this.readyState == 4 && this.status == 200) {
+                                                            response_global = this.responseText;
+
+                                                            var obj = JSON.parse(response_global);
+
+                                                            // console.log(obj);
+
+                                                            var key = Object.keys(obj);
+                                                            var len = key.length;
+
+                                                            web_structure = "Page consists of " + (len - 1) + " sections. ";
+
+                                                            localStorage.setItem("myJson", response_global);
+                                                        }
+                                                    };
+                                                });
+                                            });
+                                            web_st += web_structure
+                                        }
+                                        // localStorage.clear();
+                                        utterance = new SpeechSynthesisUtterance(web_st);
+                                    }
+                                });
+
                             }
                             // vision give website structure
                             else if (event.results[i][0].transcript.toLowerCase().trim().includes("give website structure")) {
                                 // var msg = "Wikipedia page for " + main_heading + " is open. " + "Page consists of " + (len - 2) + " sections. ";
-                                var web_st = "";
+                                chrome.tabs.query({ 'active': true, 'lastFocusedWindow': true }, function (tabs) {
+                                    var url = tabs[0].url;
+                                    if (url.startsWith("https://en.wikipedia.org/")) {
+                                        var web_st = "";
 
-                                if (localStorage.getItem("myJson") !== null) {
-                                    var passedJson = localStorage.getItem("myJson"); //get saved data anytime
-                                    var obj = JSON.parse(passedJson);
-                                    // console.log(obj)
+                                        if (localStorage.getItem("myJson") !== null) {
+                                            var passedJson = localStorage.getItem("myJson"); //get saved data anytime
+                                            var obj = JSON.parse(passedJson);
+                                            // console.log(obj)
 
-                                    var key = Object.keys(obj);
-                                    var len = key.length;
-                                    var main_heading = Object.keys(obj)[len - 1];
+                                            var key = Object.keys(obj);
+                                            var len = key.length;
+                                            var main_heading = Object.keys(obj)[len - 1];
 
-                                    var web_structure = "Wikipedia page for " + main_heading + " is open. " + "Page consists of " + (len - 2) + " sections. "
+                                            var web_structure = "Wikipedia page for " + main_heading + " is open. " + "Page consists of " + (len - 2) + " sections. "
 
-                                    var count = 1;
-                                    for (var key in obj) {
-                                        if (key === 'See also') {
-                                            break
-                                        }
-                                        var app_txt = "Section " + count + " is about '" + key + "' consisting of " + obj[key]['para'].length + " paragraphs and " + obj[key]['images'].length + " images. "
-                                        web_structure += app_txt;
-                                        count++;
-                                    }
-                                    web_st += web_structure
-                                    // localStorage.clear();
-                                } else {
-                                    var response_global = ""
-                                    var web_structure
-
-                                    window.addEventListener('DOMContentLoaded', (event) => {
-
-                                        var url = "fetching url";
-
-                                        chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
-                                            url = tabs[0].url
-
-                                            var xhttp = new XMLHttpRequest();
-
-                                            xhttp.open("POST", "http://127.0.0.1:5000/read_page");
-                                            xhttp.send("url=" + tabs[0].url);
-
-
-                                            xhttp.onreadystatechange = function () {
-                                                if (this.readyState == 4 && this.status == 200) {
-                                                    response_global = this.responseText;
-
-                                                    var obj = JSON.parse(response_global);
-
-                                                    // console.log(obj);
-
-                                                    var key = Object.keys(obj);
-                                                    var len = key.length;
-                                                    var main_heading = Object.keys(obj)[len - 1];
-
-                                                    web_structure = "Wikipedia page for " + main_heading + " is open. " + "Page consists of " + (len - 2) + " sections. "
-
-                                                    var count = 1;
-                                                    for (var key in obj) {
-                                                        if (key === 'See also') {
-                                                            break
-                                                        }
-                                                        var app_txt = "Section " + count + " is about '" + key + "' consisting of " + obj[key]['para'].length + " paragraphs and " + obj[key]['images'].length + " images. "
-                                                        web_structure += app_txt;
-                                                        count++;
-                                                    }
-
-                                                    localStorage.setItem("myJson", response_global);
+                                            var count = 1;
+                                            for (var key in obj) {
+                                                if (key === 'See also') {
+                                                    break
                                                 }
-                                            };
-                                        });
-                                    });
-                                    web_st += web_structure
-                                }
-                                // localStorage.clear();
-                                utterance = new SpeechSynthesisUtterance(web_st);
+                                                var app_txt = "Section " + count + " is about '" + key + "' consisting of " + obj[key]['para'].length + " paragraphs and " + obj[key]['images'].length + " images. "
+                                                web_structure += app_txt;
+                                                count++;
+                                            }
+                                            web_st += web_structure
+                                            // localStorage.clear();
+                                        } else {
+                                            var response_global = ""
+                                            var web_structure
+
+                                            window.addEventListener('DOMContentLoaded', (event) => {
+
+                                                var url = "fetching url";
+
+                                                chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+                                                    url = tabs[0].url
+
+                                                    var xhttp = new XMLHttpRequest();
+
+                                                    xhttp.open("POST", "http://127.0.0.1:5000/read_page");
+                                                    xhttp.send("url=" + tabs[0].url);
+
+
+                                                    xhttp.onreadystatechange = function () {
+                                                        if (this.readyState == 4 && this.status == 200) {
+                                                            response_global = this.responseText;
+
+                                                            var obj = JSON.parse(response_global);
+
+                                                            // console.log(obj);
+
+                                                            var key = Object.keys(obj);
+                                                            var len = key.length;
+                                                            var main_heading = Object.keys(obj)[len - 1];
+
+                                                            web_structure = "Wikipedia page for " + main_heading + " is open. " + "Page consists of " + (len - 2) + " sections. "
+
+                                                            var count = 1;
+                                                            for (var key in obj) {
+                                                                if (key === 'See also') {
+                                                                    break
+                                                                }
+                                                                var app_txt = "Section " + count + " is about '" + key + "' consisting of " + obj[key]['para'].length + " paragraphs and " + obj[key]['images'].length + " images. "
+                                                                web_structure += app_txt;
+                                                                count++;
+                                                            }
+
+                                                            localStorage.setItem("myJson", response_global);
+                                                        }
+                                                    };
+                                                });
+                                            });
+                                            web_st += web_structure
+                                        }
+                                        // localStorage.clear();
+                                        utterance = new SpeechSynthesisUtterance(web_st);
+                                    } else {
+                                        var web_st = "";
+
+                                        if (localStorage.getItem("myJson") !== null) {
+                                            var passedJson = localStorage.getItem("myJson"); //get saved data anytime
+                                            var obj = JSON.parse(passedJson);
+                                            // console.log(obj)
+
+                                            var key = Object.keys(obj);
+                                            var len = key.length;
+
+                                            var web_structure = "";
+
+                                            for (var key in obj) {
+                                                if (key === '0') {
+                                                    continue;
+                                                }
+                                                web_structure += "Section " + key + " consisits of " + obj[key]['images'].length + " images, " + obj[key]['paras'].length + " paragraphs and " + Object.keys(obj[key]['anchors']).length + " hyperlinks. ";
+                                            }
+
+                                            web_st += web_structure
+                                            // localStorage.clear();
+                                        } else {
+                                            var response_global = ""
+                                            var web_structure
+
+                                            window.addEventListener('DOMContentLoaded', (event) => {
+
+                                                var url = "fetching url";
+
+                                                chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+                                                    url = tabs[0].url
+
+                                                    var xhttp = new XMLHttpRequest();
+
+                                                    xhttp.open("POST", "http://127.0.0.1:5000/read_page");
+                                                    xhttp.send("url=" + tabs[0].url);
+
+
+                                                    xhttp.onreadystatechange = function () {
+                                                        if (this.readyState == 4 && this.status == 200) {
+                                                            response_global = this.responseText;
+
+                                                            var obj = JSON.parse(response_global);
+
+                                                            // console.log(obj);
+
+                                                            var key = Object.keys(obj);
+
+                                                            var web_structure = "";
+
+                                                            for (var key in obj) {
+                                                                if (key === '0') {
+                                                                    continue;
+                                                                }
+                                                                web_structure += "Section " + key + " consisits of " + obj[key]['images'].length + " images, " + obj[key]['paras'].length + " paragraphs and " + Object.keys(obj[key]['anchors']).length + " hyperlinks. ";
+                                                            }
+
+                                                            localStorage.setItem("myJson", response_global);
+                                                        }
+                                                    };
+                                                });
+                                            });
+                                            web_st += web_structure
+                                        }
+                                        // localStorage.clear();
+                                        utterance = new SpeechSynthesisUtterance(web_st);
+                                    }
+                                });
+
                             }
                             // Vision initiate web content
                             else if (event.results[i][0].transcript.toLowerCase().trim().includes("initiate web content")) {
@@ -319,359 +526,884 @@ else {
                             else if (event.results[i][0].transcript.toLowerCase().trim().includes("read section")) {
                                 var requestedInput = event.results[i][0].transcript.toLowerCase().trim().substr(19, event.results[i][0].transcript.toLowerCase().trim().length - 1).trim();
                                 // var msg = "Wikipedia page for " + main_heading + " is open. " + "Page consists of " + (len - 2) + " sections. ";
-                                var web_st = "";
+                                chrome.tabs.query({ 'active': true, 'lastFocusedWindow': true }, function (tabs) {
+                                    var url = tabs[0].url;
+                                    if (url.startsWith("https://en.wikipedia.org/")) {
+                                        var web_st = "";
 
-                                if (localStorage.getItem("myJson") !== null) {
-                                    var passedJson = localStorage.getItem("myJson"); //get saved data anytime
-                                    var obj = JSON.parse(passedJson);
-                                    // console.log(obj)
+                                        if (localStorage.getItem("myJson") !== null) {
+                                            var passedJson = localStorage.getItem("myJson"); //get saved data anytime
+                                            var obj = JSON.parse(passedJson);
+                                            // console.log(obj)
 
-                                    var key = Object.keys(obj);
-                                    var len = key.length;
+                                            var key = Object.keys(obj);
+                                            var len = key.length;
 
-                                    var web_content = ""
+                                            var web_content = ""
 
-                                    // Displays section heading and all its paragraphs
-                                    for (var key in obj) {
-                                        if (key.toLowerCase() === requestedInput) {
-                                            web_content += "Reading Section " + key + " ";
-                                            if (obj[key]['para'].length > 0) {
-                                                for (var para in obj[key]['para']) {
-                                                    web_content += obj[key]['para'][para] + " ";
-                                                }
-                                            }
-                                        }
-                                    }
-                                    web_st += web_content;
-                                } else {
-                                    var response_global = ""
-                                    var web_content
-
-                                    window.addEventListener('DOMContentLoaded', (event) => {
-
-                                        var url = "fetching url";
-
-                                        chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
-                                            url = tabs[0].url
-
-                                            var xhttp = new XMLHttpRequest();
-
-                                            xhttp.open("POST", "http://127.0.0.1:5000/read_page");
-                                            xhttp.send("url=" + tabs[0].url);
-
-
-                                            xhttp.onreadystatechange = function () {
-                                                if (this.readyState == 4 && this.status == 200) {
-                                                    response_global = this.responseText;
-
-
-                                                    var obj = JSON.parse(response_global);
-
-                                                    // console.log(obj);
-
-                                                    var key = Object.keys(obj);
-                                                    var len = key.length;
-
-                                                    web_content = ""
-
-                                                    // Displays section heading and all its paragraphs
-                                                    for (var key in obj) {
-                                                        if (key.toLowerCase() === requestedInput) {
-                                                            web_content += "Reading Section " + key + " ";
-                                                            if (obj[key]['para'].length > 0) {
-                                                                for (var para in obj[key]['para']) {
-                                                                    web_content += obj[key]['para'][para] + " ";
-                                                                }
-                                                            }
+                                            // Displays section heading and all its paragraphs
+                                            for (var key in obj) {
+                                                if (key.toLowerCase() === requestedInput) {
+                                                    web_content += "Reading Section " + key + " ";
+                                                    if (obj[key]['para'].length > 0) {
+                                                        for (var para in obj[key]['para']) {
+                                                            web_content += obj[key]['para'][para] + " ";
                                                         }
                                                     }
-                                                    localStorage.setItem("myJson", response_global);
                                                 }
-                                            };
-                                        });
-                                    });
-                                    web_st += web_content
-                                }
-                                // localStorage.clear();
-                                // utterance = new SpeechSynthesisUtterance(requestedInput);
-                                utterance = new SpeechSynthesisUtterance(web_st);
-                                // console.log(requestedInput);
+                                            }
+                                            web_st += web_content;
+                                        } else {
+                                            var response_global = ""
+                                            var web_content
+
+                                            window.addEventListener('DOMContentLoaded', (event) => {
+
+                                                var url = "fetching url";
+
+                                                chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+                                                    url = tabs[0].url
+
+                                                    var xhttp = new XMLHttpRequest();
+
+                                                    xhttp.open("POST", "http://127.0.0.1:5000/read_page");
+                                                    xhttp.send("url=" + tabs[0].url);
+
+
+                                                    xhttp.onreadystatechange = function () {
+                                                        if (this.readyState == 4 && this.status == 200) {
+                                                            response_global = this.responseText;
+
+
+                                                            var obj = JSON.parse(response_global);
+
+                                                            // console.log(obj);
+
+                                                            var key = Object.keys(obj);
+                                                            var len = key.length;
+
+                                                            web_content = ""
+
+                                                            // Displays section heading and all its paragraphs
+                                                            for (var key in obj) {
+                                                                if (key.toLowerCase() === requestedInput) {
+                                                                    web_content += "Reading Section " + key + " ";
+                                                                    if (obj[key]['para'].length > 0) {
+                                                                        for (var para in obj[key]['para']) {
+                                                                            web_content += obj[key]['para'][para] + " ";
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                            localStorage.setItem("myJson", response_global);
+                                                        }
+                                                    };
+                                                });
+                                            });
+                                            web_st += web_content
+                                        }
+                                        // localStorage.clear();
+                                        // utterance = new SpeechSynthesisUtterance(requestedInput);
+                                        utterance = new SpeechSynthesisUtterance(web_st);
+                                    } else {
+                                        var web_st = "";
+
+                                        if (localStorage.getItem("myJson") !== null) {
+                                            var passedJson = localStorage.getItem("myJson"); //get saved data anytime
+                                            var obj = JSON.parse(passedJson);
+                                            // console.log(obj)
+
+                                            var key = Object.keys(obj);
+
+                                            var web_content = ""
+
+                                            // Displays section heading and all its paragraphs
+                                            for (var key in obj) {
+                                                if (key.toLowerCase() === requestedInput) {
+                                                    web_content += "Reading Section " + key + " ";
+                                                    if (obj[key]['paras'].length > 0) {
+                                                        for (var para in obj[key]['paras']) {
+                                                            web_content += obj[key]['paras'][para] + " ";
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            web_st += web_content;
+                                        } else {
+                                            var response_global = ""
+                                            var web_content
+
+                                            window.addEventListener('DOMContentLoaded', (event) => {
+
+                                                var url = "fetching url";
+
+                                                chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+                                                    url = tabs[0].url
+
+                                                    var xhttp = new XMLHttpRequest();
+
+                                                    xhttp.open("POST", "http://127.0.0.1:5000/read_page");
+                                                    xhttp.send("url=" + tabs[0].url);
+
+
+                                                    xhttp.onreadystatechange = function () {
+                                                        if (this.readyState == 4 && this.status == 200) {
+                                                            response_global = this.responseText;
+
+
+                                                            var obj = JSON.parse(response_global);
+
+                                                            // console.log(obj);
+
+                                                            var key = Object.keys(obj);
+
+                                                            web_content = ""
+
+                                                            // Displays section heading and all its paragraphs
+                                                            for (var key in obj) {
+                                                                if (key.toLowerCase() === requestedInput) {
+                                                                    web_content += "Reading Section " + key + " ";
+                                                                    if (obj[key]['paras'].length > 0) {
+                                                                        for (var para in obj[key]['paras']) {
+                                                                            web_content += obj[key]['paras'][para] + " ";
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                            localStorage.setItem("myJson", response_global);
+                                                        }
+                                                    };
+                                                });
+                                            });
+                                            web_st += web_content
+                                        }
+                                        // localStorage.clear();
+                                        // utterance = new SpeechSynthesisUtterance(requestedInput);
+                                        utterance = new SpeechSynthesisUtterance(web_st);
+                                    }
+                                });
                             }
                             // vision read paragraph one of section {section_name}
                             else if (event.results[i][0].transcript.toLowerCase().trim().includes("read para")) {
                                 var requestedPara = event.results[i][0].transcript.toLowerCase().trim().substr(event.results[i][0].transcript.toLowerCase().trim().indexOf("para") + 4, event.results[i][0].transcript.toLowerCase().trim().indexOf("of") - 17);
                                 var requestedSection = event.results[i][0].transcript.toLowerCase().trim().substr(event.results[i][0].transcript.toLowerCase().trim().indexOf("section") + 8, event.results[i][0].transcript.toLowerCase().trim().length - 1);
                                 // var v_msg = "Want to read paragraph " + parseInt(requestedPara) + " of section " + requestedSection + ".";
-                                var web_st = "";
+                                chrome.tabs.query({ 'active': true, 'lastFocusedWindow': true }, function (tabs) {
+                                    var url = tabs[0].url;
+                                    if (url.startsWith("https://en.wikipedia.org/")) {
+                                        var web_st = "";
 
-                                if (localStorage.getItem("myJson") !== null) {
-                                    var passedJson = localStorage.getItem("myJson"); //get saved data anytime
-                                    var obj = JSON.parse(passedJson);
-                                    // console.log(obj)
+                                        if (localStorage.getItem("myJson") !== null) {
+                                            var passedJson = localStorage.getItem("myJson");
+                                            var obj = JSON.parse(passedJson);
 
-                                    var key = Object.keys(obj);
-                                    var len = key.length;
+                                            var key = Object.keys(obj);
+                                            var len = key.length;
 
-                                    var web_content = ""
+                                            var web_content = ""
 
-                                    // Displays section heading and all its paragraphs
-                                    for (var key in obj) {
-                                        if (key.toLowerCase() === requestedSection) {
-                                            if (obj[key]['para'].length > 0) {
-                                                web_content += "Reading paragraph " + requestedPara + " of section " + key + ". ";
-                                                var para_no = 1;
-                                                for (var para in obj[key]['para']) {
-                                                    if (para_no === parseInt(requestedPara)) {
-                                                        web_content += obj[key]['para'][para] + " ";
-                                                    }
-                                                    para_no++;
-                                                }
-                                            } else {
-                                                web_content += "This section do not contain any paragraph";
-                                            }
-                                        }
-                                    }
-                                    web_st += web_content;
-                                } else {
-                                    var response_global = ""
-                                    var web_content
-
-                                    window.addEventListener('DOMContentLoaded', (event) => {
-
-                                        var url = "fetching url";
-
-                                        chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
-                                            url = tabs[0].url
-
-                                            var xhttp = new XMLHttpRequest();
-
-                                            xhttp.open("POST", "http://127.0.0.1:5000/read_page");
-                                            xhttp.send("url=" + tabs[0].url);
-
-
-                                            xhttp.onreadystatechange = function () {
-                                                if (this.readyState == 4 && this.status == 200) {
-                                                    response_global = this.responseText;
-
-
-                                                    var obj = JSON.parse(response_global);
-
-                                                    // console.log(obj);
-
-                                                    var key = Object.keys(obj);
-                                                    var len = key.length;
-
-                                                    web_content = ""
-
-                                                    // Displays section heading and all its paragraphs
-                                                    for (var key in obj) {
-                                                        if (key.toLowerCase() === requestedSection) {
-                                                            if (obj[key]['para'].length > 0) {
-                                                                web_content += "Reading paragraph " + requestedPara + " of section " + key + ". ";
-                                                                var para_no = 1;
-                                                                for (var para in obj[key]['para']) {
-                                                                    if (para_no === parseInt(requestedPara)) {
-                                                                        web_content += obj[key]['para'][para] + " ";
-                                                                    }
-                                                                    para_no++;
-                                                                }
-                                                            } else {
-                                                                web_content += "This section do not contain any paragraph";
+                                            // Displays section heading and all its paragraphs
+                                            for (var key in obj) {
+                                                if (key.toLowerCase() === requestedSection) {
+                                                    if (obj[key]['para'].length > 0) {
+                                                        web_content += "Reading paragraph " + requestedPara + " of section " + key + ". ";
+                                                        var para_no = 1;
+                                                        for (var para in obj[key]['para']) {
+                                                            if (para_no === parseInt(requestedPara)) {
+                                                                web_content += obj[key]['para'][para] + " ";
                                                             }
+                                                            para_no++;
                                                         }
+                                                    } else {
+                                                        web_content += "This section do not contain any paragraph";
                                                     }
-                                                    localStorage.setItem("myJson", response_global);
                                                 }
-                                            };
-                                        });
-                                    });
-                                    web_st += web_content
-                                }
-                                // localStorage.clear();
-                                // utterance = new SpeechSynthesisUtterance(requestedInput);
-                                utterance = new SpeechSynthesisUtterance(web_st);
-                                // utterance = new SpeechSynthesisUtterance(v_msg);
+                                            }
+                                            web_st += web_content;
+                                        } else {
+                                            var response_global = ""
+                                            var web_content
+
+                                            window.addEventListener('DOMContentLoaded', (event) => {
+
+                                                var url = "fetching url";
+
+                                                chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+                                                    url = tabs[0].url
+
+                                                    var xhttp = new XMLHttpRequest();
+
+                                                    xhttp.open("POST", "http://127.0.0.1:5000/read_page");
+                                                    xhttp.send("url=" + tabs[0].url);
+
+
+                                                    xhttp.onreadystatechange = function () {
+                                                        if (this.readyState == 4 && this.status == 200) {
+                                                            response_global = this.responseText;
+
+
+                                                            var obj = JSON.parse(response_global);
+
+                                                            // console.log(obj);
+
+                                                            var key = Object.keys(obj);
+                                                            var len = key.length;
+
+                                                            web_content = ""
+
+                                                            // Displays section heading and all its paragraphs
+                                                            for (var key in obj) {
+                                                                if (key.toLowerCase() === requestedSection) {
+                                                                    if (obj[key]['para'].length > 0) {
+                                                                        web_content += "Reading paragraph " + requestedPara + " of section " + key + ". ";
+                                                                        var para_no = 1;
+                                                                        for (var para in obj[key]['para']) {
+                                                                            if (para_no === parseInt(requestedPara)) {
+                                                                                web_content += obj[key]['para'][para] + " ";
+                                                                            }
+                                                                            para_no++;
+                                                                        }
+                                                                    } else {
+                                                                        web_content += "This section do not contain any paragraph";
+                                                                    }
+                                                                }
+                                                            }
+                                                            localStorage.setItem("myJson", response_global);
+                                                        }
+                                                    };
+                                                });
+                                            });
+                                            web_st += web_content
+                                        }
+                                        // localStorage.clear();
+                                        // utterance = new SpeechSynthesisUtterance(requestedInput);
+                                        utterance = new SpeechSynthesisUtterance(web_st);
+                                    } else {
+                                        var web_st = "";
+
+                                        if (localStorage.getItem("myJson") !== null) {
+                                            var passedJson = localStorage.getItem("myJson"); //get saved data anytime
+                                            var obj = JSON.parse(passedJson);
+                                            // console.log(obj)
+
+                                            var key = Object.keys(obj);
+
+                                            var web_content = ""
+
+                                            // Displays section heading and all its paragraphs
+                                            for (var key in obj) {
+                                                if (key.toLowerCase() === requestedSection) {
+                                                    if (obj[key]['paras'].length > 0) {
+                                                        web_content += "Reading paragraph " + requestedPara + " of section " + key + ". ";
+                                                        var para_no = 1;
+                                                        for (var para in obj[key]['paras']) {
+                                                            if (para_no === parseInt(requestedPara)) {
+                                                                web_content += obj[key]['paras'][para] + " ";
+                                                            }
+                                                            para_no++;
+                                                        }
+                                                    } else {
+                                                        web_content += "This section do not contain any paragraph";
+                                                    }
+                                                }
+                                            }
+                                            web_st += web_content;
+                                        } else {
+                                            var response_global = ""
+                                            var web_content
+
+                                            window.addEventListener('DOMContentLoaded', (event) => {
+
+                                                var url = "fetching url";
+
+                                                chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+                                                    url = tabs[0].url
+
+                                                    var xhttp = new XMLHttpRequest();
+
+                                                    xhttp.open("POST", "http://127.0.0.1:5000/read_page");
+                                                    xhttp.send("url=" + tabs[0].url);
+
+
+                                                    xhttp.onreadystatechange = function () {
+                                                        if (this.readyState == 4 && this.status == 200) {
+                                                            response_global = this.responseText;
+
+
+                                                            var obj = JSON.parse(response_global);
+
+                                                            // console.log(obj);
+
+                                                            var key = Object.keys(obj);
+                                                            var len = key.length;
+
+                                                            web_content = ""
+
+                                                            // Displays section heading and all its paragraphs
+                                                            for (var key in obj) {
+                                                                if (key.toLowerCase() === requestedSection) {
+                                                                    if (obj[key]['paras'].length > 0) {
+                                                                        web_content += "Reading paragraph " + requestedPara + " of section " + key + ". ";
+                                                                        var para_no = 1;
+                                                                        for (var para in obj[key]['paras']) {
+                                                                            if (para_no === parseInt(requestedPara)) {
+                                                                                web_content += obj[key]['paras'][para] + " ";
+                                                                            }
+                                                                            para_no++;
+                                                                        }
+                                                                    } else {
+                                                                        web_content += "This section do not contain any paragraph";
+                                                                    }
+                                                                }
+                                                            }
+                                                            localStorage.setItem("myJson", response_global);
+                                                        }
+                                                    };
+                                                });
+                                            });
+                                            web_st += web_content
+                                        }
+                                        // localStorage.clear();
+                                        // utterance = new SpeechSynthesisUtterance(requestedInput);
+                                        utterance = new SpeechSynthesisUtterance(web_st);
+                                    }
+                                });
                             }
                             // vision read all images of section {section_name}
                             else if (event.results[i][0].transcript.toLowerCase().trim().includes("read all images of section")) {
                                 var requestedInput = event.results[i][0].transcript.toLowerCase().trim().substr(33, event.results[i][0].transcript.toLowerCase().trim().length - 1).trim();
                                 // var msg = "Wikipedia page for " + main_heading + " is open. " + "Page consists of " + (len - 2) + " sections. ";
-                                var web_st = "";
+                                chrome.tabs.query({ 'active': true, 'lastFocusedWindow': true }, function (tabs) {
+                                    var url = tabs[0].url;
+                                    if (url.startsWith("https://en.wikipedia.org/")) {
+                                        var web_st = "";
 
-                                if (localStorage.getItem("myJson") !== null) {
-                                    var passedJson = localStorage.getItem("myJson"); //get saved data anytime
-                                    var obj = JSON.parse(passedJson);
-                                    // console.log(obj)
+                                        if (localStorage.getItem("myJson") !== null) {
+                                            var passedJson = localStorage.getItem("myJson"); //get saved data anytime
+                                            var obj = JSON.parse(passedJson);
+                                            // console.log(obj)
 
-                                    var key = Object.keys(obj);
-                                    var len = key.length;
+                                            var key = Object.keys(obj);
+                                            var len = key.length;
 
-                                    var web_content = ""
+                                            var web_content = ""
 
-                                    // Displays section heading and all its paragraphs
-                                    for (var key in obj) {
-                                        if (key.toLowerCase() === requestedInput) {
-                                            web_content += "Reading images of section " + key + ". ";
-                                            if (obj[key]['images'].length > 0) {
-                                                var img_no = 1;
-                                                for (var img in obj[key]['images']) {
-                                                    web_content += "Reading image " + img_no + ". " + obj[key]['images'][img] + "...    ";
-                                                    img_no++;
-                                                }
-                                            }
-                                        }
-                                    }
-                                    web_st += web_content;
-                                } else {
-                                    var response_global = ""
-                                    var web_content
-
-                                    window.addEventListener('DOMContentLoaded', (event) => {
-
-                                        var url = "fetching url";
-
-                                        chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
-                                            url = tabs[0].url
-
-                                            var xhttp = new XMLHttpRequest();
-
-                                            xhttp.open("POST", "http://127.0.0.1:5000/read_page");
-                                            xhttp.send("url=" + tabs[0].url);
-
-
-                                            xhttp.onreadystatechange = function () {
-                                                if (this.readyState == 4 && this.status == 200) {
-                                                    response_global = this.responseText;
-
-
-                                                    var obj = JSON.parse(response_global);
-
-                                                    // console.log(obj);
-
-                                                    var key = Object.keys(obj);
-                                                    var len = key.length;
-
-                                                    web_content = ""
-
-                                                    // Displays section heading and all its paragraphs
-                                                    for (var key in obj) {
-                                                        if (key.toLowerCase() === requestedInput) {
-                                                            web_content += "Reading images of section " + key + ". ";
-                                                            if (obj[key]['images'].length > 0) {
-                                                                var img_no = 1;
-                                                                for (var img in obj[key]['images']) {
-                                                                    web_content += "Reading image " + img_no + ". " + obj[key]['images'][img] + "...    ";
-                                                                    img_no++;
-                                                                }
-                                                            }
+                                            // Displays section heading and all its paragraphs
+                                            for (var key in obj) {
+                                                if (key.toLowerCase() === requestedInput) {
+                                                    web_content += "Reading images of section " + key + ". ";
+                                                    if (obj[key]['images'].length > 0) {
+                                                        var img_no = 1;
+                                                        for (var img in obj[key]['images']) {
+                                                            web_content += "Reading image " + img_no + ". " + obj[key]['images'][img] + "...    ";
+                                                            img_no++;
                                                         }
                                                     }
-                                                    localStorage.setItem("myJson", response_global);
                                                 }
-                                            };
-                                        });
-                                    });
-                                    web_st += web_content
-                                }
-                                // localStorage.clear();
-                                // utterance = new SpeechSynthesisUtterance(requestedInput);
-                                utterance = new SpeechSynthesisUtterance(web_st);
-                                // console.log(requestedInput);
+                                            }
+                                            web_st += web_content;
+                                        } else {
+                                            var response_global = ""
+                                            var web_content
+
+                                            window.addEventListener('DOMContentLoaded', (event) => {
+
+                                                var url = "fetching url";
+
+                                                chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+                                                    url = tabs[0].url
+
+                                                    var xhttp = new XMLHttpRequest();
+
+                                                    xhttp.open("POST", "http://127.0.0.1:5000/read_page");
+                                                    xhttp.send("url=" + tabs[0].url);
+
+
+                                                    xhttp.onreadystatechange = function () {
+                                                        if (this.readyState == 4 && this.status == 200) {
+                                                            response_global = this.responseText;
+
+
+                                                            var obj = JSON.parse(response_global);
+
+                                                            // console.log(obj);
+
+                                                            var key = Object.keys(obj);
+                                                            var len = key.length;
+
+                                                            web_content = ""
+
+                                                            // Displays section heading and all its paragraphs
+                                                            for (var key in obj) {
+                                                                if (key.toLowerCase() === requestedInput) {
+                                                                    web_content += "Reading images of section " + key + ". ";
+                                                                    if (obj[key]['images'].length > 0) {
+                                                                        var img_no = 1;
+                                                                        for (var img in obj[key]['images']) {
+                                                                            web_content += "Reading image " + img_no + ". " + obj[key]['images'][img] + "...    ";
+                                                                            img_no++;
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                            localStorage.setItem("myJson", response_global);
+                                                        }
+                                                    };
+                                                });
+                                            });
+                                            web_st += web_content
+                                        }
+                                        // localStorage.clear();
+                                        // utterance = new SpeechSynthesisUtterance(requestedInput);
+                                        utterance = new SpeechSynthesisUtterance(web_st);
+                                    } else {
+                                        var web_st = "";
+
+                                        if (localStorage.getItem("myJson") !== null) {
+                                            var passedJson = localStorage.getItem("myJson"); //get saved data anytime
+                                            var obj = JSON.parse(passedJson);
+                                            // console.log(obj)
+
+                                            var key = Object.keys(obj);
+
+                                            var web_content = ""
+
+                                            // Displays section heading and all its paragraphs
+                                            for (var key in obj) {
+                                                if (key.toLowerCase() === requestedInput) {
+                                                    web_content += "Section " + key + "consists of " + obj[key]['images'].length + " images. Which image do you want to listen to?";
+                                                }
+                                            }
+                                            web_st += web_content;
+                                        } else {
+                                            var response_global = ""
+                                            var web_content
+
+                                            window.addEventListener('DOMContentLoaded', (event) => {
+
+                                                var url = "fetching url";
+
+                                                chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+                                                    url = tabs[0].url
+
+                                                    var xhttp = new XMLHttpRequest();
+
+                                                    xhttp.open("POST", "http://127.0.0.1:5000/read_page");
+                                                    xhttp.send("url=" + tabs[0].url);
+
+
+                                                    xhttp.onreadystatechange = function () {
+                                                        if (this.readyState == 4 && this.status == 200) {
+                                                            response_global = this.responseText;
+
+
+                                                            var obj = JSON.parse(response_global);
+
+                                                            // console.log(obj);
+
+                                                            var key = Object.keys(obj);
+
+                                                            var web_content = ""
+
+                                                            // Displays section heading and all its paragraphs
+                                                            for (var key in obj) {
+                                                                if (key.toLowerCase() === requestedInput) {
+                                                                    web_content += "Section " + key + "consists of " + obj[key]['images'].length + " images. Which image do you want to listen to?";
+                                                                }
+                                                            }
+                                                            localStorage.setItem("myJson", response_global);
+                                                        }
+                                                    };
+                                                });
+                                            });
+                                            web_st += web_content
+                                        }
+                                        // localStorage.clear();
+                                        // utterance = new SpeechSynthesisUtterance(requestedInput);
+                                        utterance = new SpeechSynthesisUtterance(web_st);
+                                    }
+                                });
                             }
                             // vision read image one of section {section_name}
                             else if (event.results[i][0].transcript.toLowerCase().trim().includes("read image")) {
                                 var requestedImg = event.results[i][0].transcript.toLowerCase().trim().substr(event.results[i][0].transcript.toLowerCase().trim().indexOf("image") + 6, event.results[i][0].transcript.toLowerCase().trim().indexOf("of") - 19);
                                 var requestedSection = event.results[i][0].transcript.toLowerCase().trim().substr(event.results[i][0].transcript.toLowerCase().trim().indexOf("section") + 8, event.results[i][0].transcript.toLowerCase().trim().length - 1);
                                 // var v_msg = "Want to read paragraph " + parseInt(requestedImg) + " of section " + requestedSection + ".";
-                                var web_st = "";
+                                chrome.tabs.query({ 'active': true, 'lastFocusedWindow': true }, function (tabs) {
+                                    var url = tabs[0].url;
+                                    if (url.startsWith("https://en.wikipedia.org/")) {
+                                        var web_st = "";
 
-                                if (localStorage.getItem("myJson") !== null) {
-                                    var passedJson = localStorage.getItem("myJson"); //get saved data anytime
-                                    var obj = JSON.parse(passedJson);
-                                    // console.log(obj)
+                                        if (localStorage.getItem("myJson") !== null) {
+                                            var passedJson = localStorage.getItem("myJson"); //get saved data anytime
+                                            var obj = JSON.parse(passedJson);
+                                            // console.log(obj)
 
-                                    var key = Object.keys(obj);
-                                    var len = key.length;
+                                            var key = Object.keys(obj);
+                                            var len = key.length;
 
-                                    var web_content = ""
+                                            var web_content = ""
 
-                                    // Displays section heading and all its paragraphs
-                                    for (var key in obj) {
-                                        if (key.toLowerCase() === requestedSection) {
-                                            if (obj[key]['images'].length > 0) {
-                                                web_content += "Reading image " + requestedImg + " of section " + key + ". ";
-                                                var para_no = 1;
-                                                for (var para in obj[key]['images']) {
-                                                    if (para_no === parseInt(requestedImg)) {
-                                                        web_content += obj[key]['images'][para] + " ";
-                                                    }
-                                                    para_no++;
-                                                }
-                                            } else {
-                                                web_content += "This section do not contain any image";
-                                            }
-                                        }
-                                    }
-                                    web_st += web_content;
-                                } else {
-                                    var response_global = ""
-                                    var web_content
-
-                                    window.addEventListener('DOMContentLoaded', (event) => {
-
-                                        var url = "fetching url";
-
-                                        chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
-                                            url = tabs[0].url
-
-                                            var xhttp = new XMLHttpRequest();
-
-                                            xhttp.open("POST", "http://127.0.0.1:5000/read_page");
-                                            xhttp.send("url=" + tabs[0].url);
-
-
-                                            xhttp.onreadystatechange = function () {
-                                                if (this.readyState == 4 && this.status == 200) {
-                                                    response_global = this.responseText;
-
-
-                                                    var obj = JSON.parse(response_global);
-
-                                                    // console.log(obj);
-
-                                                    var key = Object.keys(obj);
-                                                    var len = key.length;
-
-                                                    web_content = ""
-
-                                                    // Displays section heading and all its paragraphs
-                                                    for (var key in obj) {
-                                                        if (key.toLowerCase() === requestedSection) {
-                                                            if (obj[key]['images'].length > 0) {
-                                                                web_content += "Reading image " + requestedImg + " of section " + key + ". ";
-                                                                var para_no = 1;
-                                                                for (var para in obj[key]['images']) {
-                                                                    if (para_no === parseInt(requestedImg)) {
-                                                                        web_content += obj[key]['images'][para] + " ";
-                                                                    }
-                                                                    para_no++;
-                                                                }
-                                                            } else {
-                                                                web_content += "This section do not contain any image";
+                                            // Displays section heading and all its paragraphs
+                                            for (var key in obj) {
+                                                if (key.toLowerCase() === requestedSection) {
+                                                    if (obj[key]['images'].length > 0) {
+                                                        web_content += "Reading image " + requestedImg + " of section " + key + ". ";
+                                                        var para_no = 1;
+                                                        for (var para in obj[key]['images']) {
+                                                            if (para_no === parseInt(requestedImg)) {
+                                                                web_content += obj[key]['images'][para] + " ";
                                                             }
+                                                            para_no++;
                                                         }
+                                                    } else {
+                                                        web_content += "This section do not contain any image";
                                                     }
-                                                    localStorage.setItem("myJson", response_global);
                                                 }
-                                            };
-                                        });
-                                    });
-                                    web_st += web_content
-                                }
-                                // localStorage.clear();
-                                // utterance = new SpeechSynthesisUtterance(requestedInput);
-                                utterance = new SpeechSynthesisUtterance(web_st);
-                                // utterance = new SpeechSynthesisUtterance(v_msg);
+                                            }
+                                            web_st += web_content;
+                                        } else {
+                                            var response_global = ""
+                                            var web_content
+
+                                            window.addEventListener('DOMContentLoaded', (event) => {
+
+                                                var url = "fetching url";
+
+                                                chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+                                                    url = tabs[0].url
+
+                                                    var xhttp = new XMLHttpRequest();
+
+                                                    xhttp.open("POST", "http://127.0.0.1:5000/read_page");
+                                                    xhttp.send("url=" + tabs[0].url);
+
+
+                                                    xhttp.onreadystatechange = function () {
+                                                        if (this.readyState == 4 && this.status == 200) {
+                                                            response_global = this.responseText;
+
+
+                                                            var obj = JSON.parse(response_global);
+
+                                                            // console.log(obj);
+
+                                                            var key = Object.keys(obj);
+                                                            var len = key.length;
+
+                                                            web_content = ""
+
+                                                            // Displays section heading and all its paragraphs
+                                                            for (var key in obj) {
+                                                                if (key.toLowerCase() === requestedSection) {
+                                                                    if (obj[key]['images'].length > 0) {
+                                                                        web_content += "Reading image " + requestedImg + " of section " + key + ". ";
+                                                                        var para_no = 1;
+                                                                        for (var para in obj[key]['images']) {
+                                                                            if (para_no === parseInt(requestedImg)) {
+                                                                                web_content += obj[key]['images'][para] + " ";
+                                                                            }
+                                                                            para_no++;
+                                                                        }
+                                                                    } else {
+                                                                        web_content += "This section do not contain any image";
+                                                                    }
+                                                                }
+                                                            }
+                                                            localStorage.setItem("myJson", response_global);
+                                                        }
+                                                    };
+                                                });
+                                            });
+                                            web_st += web_content
+                                        }
+                                        // localStorage.clear();
+                                        // utterance = new SpeechSynthesisUtterance(requestedInput);
+                                        utterance = new SpeechSynthesisUtterance(web_st);
+                                    } else {
+                                        var web_st = "";
+
+                                        if (localStorage.getItem("myJson") !== null) {
+                                            var passedJson = localStorage.getItem("myJson"); //get saved data anytime
+                                            var obj = JSON.parse(passedJson);
+                                            // console.log(obj)
+
+                                            var key = Object.keys(obj);
+
+                                            var web_content = ""
+
+                                            // Displays section heading and all its paragraphs
+                                            for (var key in obj) {
+                                                if (key.toLowerCase() === requestedSection) {
+                                                    if (obj[key]['images'].length > 0) {
+                                                        web_content += "Reading image " + requestedImg + " of section " + key + ". ";
+                                                        var para_no = 1;
+                                                        for (var para in obj[key]['images']) {
+                                                            if (para_no === parseInt(requestedImg)) {
+                                                                web_content += obj[key]['images'][para] + " ";
+                                                            }
+                                                            para_no++;
+                                                        }
+                                                    } else {
+                                                        web_content += "This section do not contain any image";
+                                                    }
+                                                }
+                                            }
+                                            web_st += web_content;
+                                        } else {
+                                            var response_global = ""
+                                            var web_content
+
+                                            window.addEventListener('DOMContentLoaded', (event) => {
+
+                                                var url = "fetching url";
+
+                                                chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+                                                    url = tabs[0].url
+
+                                                    var xhttp = new XMLHttpRequest();
+
+                                                    xhttp.open("POST", "http://127.0.0.1:5000/read_page");
+                                                    xhttp.send("url=" + tabs[0].url);
+
+
+                                                    xhttp.onreadystatechange = function () {
+                                                        if (this.readyState == 4 && this.status == 200) {
+                                                            response_global = this.responseText;
+
+
+                                                            var obj = JSON.parse(response_global);
+
+                                                            // console.log(obj);
+
+                                                            var key = Object.keys(obj);
+
+                                                            web_content = ""
+
+                                                            // Displays section heading and all its paragraphs
+                                                            for (var key in obj) {
+                                                                if (key.toLowerCase() === requestedSection) {
+                                                                    if (obj[key]['images'].length > 0) {
+                                                                        web_content += "Reading image " + requestedImg + " of section " + key + ". ";
+                                                                        var para_no = 1;
+                                                                        for (var para in obj[key]['images']) {
+                                                                            if (para_no === parseInt(requestedImg)) {
+                                                                                web_content += obj[key]['images'][para] + " ";
+                                                                            }
+                                                                            para_no++;
+                                                                        }
+                                                                    } else {
+                                                                        web_content += "This section do not contain any image";
+                                                                    }
+                                                                }
+                                                            }
+                                                            localStorage.setItem("myJson", response_global);
+                                                        }
+                                                    };
+                                                });
+                                            });
+                                            web_st += web_content
+                                        }
+                                        // localStorage.clear();
+                                        // utterance = new SpeechSynthesisUtterance(requestedInput);
+                                        utterance = new SpeechSynthesisUtterance(web_st);
+                                    }
+                                });
+                            }
+                            // vision list hyperlinks of section {SECTION_NAME}
+                            else if (event.results[i][0].transcript.toLowerCase().trim().includes("list of section")) {
+                                var requestedSection = event.results[i][0].transcript.toLowerCase().trim().substr(event.results[i][0].transcript.toLowerCase().trim().indexOf("section") + 8, event.results[i][0].transcript.toLowerCase().trim().length - 1);
+                                // var v_msg = "Want to read paragraph " + parseInt(requestedImg) + " of section " + requestedSection + ".";
+                                chrome.tabs.query({ 'active': true, 'lastFocusedWindow': true }, function (tabs) {
+                                    var url = tabs[0].url;
+                                    if (url.startsWith("https://en.wikipedia.org/")) {
+                                        var web_st = "Sorry, too many hyperlinks can not parse.";
+                                        utterance = new SpeechSynthesisUtterance(web_st);
+                                    } else {
+                                        var web_st = "";
+
+                                        if (localStorage.getItem("myJson") !== null) {
+                                            var passedJson = localStorage.getItem("myJson"); //get saved data anytime
+                                            var obj = JSON.parse(passedJson);
+                                            // console.log(obj)
+
+                                            var key = Object.keys(obj);
+
+                                            var web_content = ""
+
+                                            for (var key in obj) {
+                                                if (key === requestedSection) {
+                                                    var key_dict = Object.keys(obj[key]['anchors']);
+                                                    if (key_dict.length > 0) {
+                                                        web_content += "Reading hyperlinks of section " + requestedSection + ". ";
+                                                        var link_no = 1;
+                                                        for (var key_dict in (obj[key]['anchors'])) {
+                                                            web_content += "Link " + link_no + " is about " + key_dict + ". ";
+                                                            link_no++;
+                                                        }
+                                                    } else {
+                                                        web_content += "This section do not contain any links";
+                                                    }
+                                                }
+                                            }
+                                            web_st += web_content;
+                                        } else {
+                                            var response_global = ""
+                                            var web_content
+
+                                            window.addEventListener('DOMContentLoaded', (event) => {
+
+                                                var url = "fetching url";
+
+                                                chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+                                                    url = tabs[0].url
+
+                                                    var xhttp = new XMLHttpRequest();
+
+                                                    xhttp.open("POST", "http://127.0.0.1:5000/read_page");
+                                                    xhttp.send("url=" + tabs[0].url);
+
+
+                                                    xhttp.onreadystatechange = function () {
+                                                        if (this.readyState == 4 && this.status == 200) {
+                                                            response_global = this.responseText;
+
+
+                                                            var obj = JSON.parse(response_global);
+
+                                                            // console.log(obj);
+
+                                                            var key = Object.keys(obj);
+
+                                                            web_content = ""
+
+                                                            for (var key in obj) {
+                                                                if (key.toLowerCase() === requestedSection) {
+                                                                    var key_dict = Object.keys(obj[key]['anchors']);
+                                                                    if (key_dict.length > 0) {
+                                                                        web_content += "Reading hyperlinks of section " + requestedSection + ". ";
+                                                                        var link_no = 1;
+                                                                        for (var key_dict in (obj[key]['anchors'])) {
+                                                                            web_content += "Link " + link_no + " is about " + key_dict + ". ";
+                                                                            link_no++;
+                                                                        }
+                                                                    } else {
+                                                                        web_content += "This section do not contain any links";
+                                                                    }
+                                                                }
+                                                            }
+                                                            localStorage.setItem("myJson", response_global);
+                                                        }
+                                                    };
+                                                });
+                                            });
+                                            web_st += web_content
+                                        }
+                                        // localStorage.clear();
+                                        // utterance = new SpeechSynthesisUtterance(requestedInput);
+                                        utterance = new SpeechSynthesisUtterance(web_st);
+                                    }
+                                });
+                            }
+                            // vision click on link {LINK_NO} of section {SECTION_NAME}
+                            else if (event.results[i][0].transcript.toLowerCase().trim().includes("click on link")) {
+                                var requestedSection = event.results[i][0].transcript.toLowerCase().trim().substr(event.results[i][0].transcript.toLowerCase().trim().indexOf("section") + 8, event.results[i][0].transcript.toLowerCase().trim().length - 1);
+                                var requestedLink = event.results[i][0].transcript.toLowerCase().trim().substr(event.results[i][0].transcript.toLowerCase().trim().indexOf("link") + 4, event.results[i][0].transcript.toLowerCase().trim().indexOf("of") - 17);
+                                // var v_msg = "Want to read paragraph " + parseInt(requestedImg) + " of section " + requestedSection + ".";
+                                chrome.tabs.query({ 'active': true, 'lastFocusedWindow': true }, function (tabs) {
+                                    var url = tabs[0].url;
+                                    if (url.startsWith("https://en.wikipedia.org/")) {
+                                        var web_st = "Sorry, too many hyperlinks can not parse.";
+                                        utterance = new SpeechSynthesisUtterance(web_st);
+                                    } else {
+                                        var web_st = "";
+
+                                        if (localStorage.getItem("myJson") !== null) {
+                                            var passedJson = localStorage.getItem("myJson"); //get saved data anytime
+                                            var obj = JSON.parse(passedJson);
+                                            // console.log(obj)
+
+                                            var key = Object.keys(obj);
+
+                                            web_content = "Opening link " + requestedLink + " of section " + requestedSection;
+
+                                            for (var key in obj) {
+                                                if (key.toLowerCase() === requestedSection) {
+                                                    var key_dict = Object.keys(obj[key]['anchors']);
+                                                    if (key_dict.length > 0) {
+                                                        // web_content += "Reading hyperlinks " + requestedImg + " of section " + key + ". ";
+                                                        var link_no = 1;
+                                                        for (var key_dict in (obj[key]['anchors'])) {
+                                                            if (link_no === parseInt(requestedLink)) {
+                                                                window.open(obj[key]['anchors'][key_dict]);
+                                                            }
+                                                            link_no++;
+                                                        }
+                                                    } else {
+                                                        web_content += "This section do not contain any links";
+                                                    }
+                                                }
+                                            }
+                                            web_st += web_content;
+                                        } else {
+                                            var response_global = ""
+                                            var web_content
+
+                                            window.addEventListener('DOMContentLoaded', (event) => {
+
+                                                var url = "fetching url";
+
+                                                chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+                                                    url = tabs[0].url
+
+                                                    var xhttp = new XMLHttpRequest();
+
+                                                    xhttp.open("POST", "http://127.0.0.1:5000/read_page");
+                                                    xhttp.send("url=" + tabs[0].url);
+
+
+                                                    xhttp.onreadystatechange = function () {
+                                                        if (this.readyState == 4 && this.status == 200) {
+                                                            response_global = this.responseText;
+
+
+                                                            var obj = JSON.parse(response_global);
+
+                                                            // console.log(obj);
+
+                                                            var key = Object.keys(obj);
+
+                                                            web_content = "Opening link " + requestedLink + " of section " + requestedSection;
+
+                                                            for (var key in obj) {
+                                                                if (key.toLowerCase() === requestedSection) {
+                                                                    var key_dict = Object.keys(obj[key]['anchors']);
+                                                                    if (key_dict.length > 0) {
+                                                                        // web_content += "Reading hyperlinks " + requestedImg + " of section " + key + ". ";
+                                                                        var link_no = 1;
+                                                                        for (var key_dict in (obj[key]['anchors'])) {
+                                                                            if (link_no === parseInt(requestedLink)) {
+                                                                                window.open(obj[key]['anchors'][key_dict]);
+                                                                            }
+                                                                            link_no++;
+                                                                        }
+                                                                    } else {
+                                                                        web_content += "This section do not contain any links";
+                                                                    }
+                                                                }
+                                                            }
+                                                            localStorage.setItem("myJson", response_global);
+                                                        }
+                                                    };
+                                                });
+                                            });
+                                            web_st += web_content
+                                        }
+                                        // localStorage.clear();
+                                        // utterance = new SpeechSynthesisUtterance(requestedInput);
+                                        utterance = new SpeechSynthesisUtterance(web_st);
+                                    }
+                                });
                             }
                             //vision a paragraph from particular section
                             else if (event.results[i][0].transcript.toLowerCase().trim().includes("paragraph")) {
@@ -1454,7 +2186,7 @@ else {
                             utterance = new SpeechSynthesisUtterance(web_st);
                             // console.log(requestedInput);
                         }
-                        // vision read paragraph one of section {section_name}
+                        // vision read para one of section {section_name}
                         else if (event.results[i][0].transcript.toLowerCase().trim().includes("read para")) {
                             var requestedPara = event.results[i][0].transcript.toLowerCase().trim().substr(event.results[i][0].transcript.toLowerCase().trim().indexOf("para") + 4, event.results[i][0].transcript.toLowerCase().trim().indexOf("of") - 17);
                             var requestedSection = event.results[i][0].transcript.toLowerCase().trim().substr(event.results[i][0].transcript.toLowerCase().trim().indexOf("section") + 8, event.results[i][0].transcript.toLowerCase().trim().length - 1);

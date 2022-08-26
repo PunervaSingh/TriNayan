@@ -1024,8 +1024,8 @@ else {
                                     }
                                 });
                             }
-                            // vision read image one of section {section_name}
-                            else if (event.results[i][0].transcript.toLowerCase().trim().includes("read image")) {
+                            // vision open image one of section {section_name}
+                            else if (event.results[i][0].transcript.toLowerCase().trim().includes("open image")) {
                                 var requestedImg = event.results[i][0].transcript.toLowerCase().trim().substr(event.results[i][0].transcript.toLowerCase().trim().indexOf("image") + 6, event.results[i][0].transcript.toLowerCase().trim().indexOf("of") - 19);
                                 var requestedSection = event.results[i][0].transcript.toLowerCase().trim().substr(event.results[i][0].transcript.toLowerCase().trim().indexOf("section") + 8, event.results[i][0].transcript.toLowerCase().trim().length - 1);
                                 // var v_msg = "Want to read paragraph " + parseInt(requestedImg) + " of section " + requestedSection + ".";
@@ -1131,6 +1131,7 @@ else {
                                             var key = Object.keys(obj);
 
                                             var web_content = ""
+                                            var image_txt = " ";
 
                                             // Displays section heading and all its paragraphs
                                             for (var key in obj) {
@@ -1140,7 +1141,21 @@ else {
                                                         var para_no = 1;
                                                         for (var para in obj[key]['images']) {
                                                             if (para_no === parseInt(requestedImg)) {
-                                                                web_content += obj[key]['images'][para] + " ";
+                                                                var xhttp2 = new XMLHttpRequest();
+
+                                                                xhttp2.open("POST", "http://127.0.0.1:5000/read_img");
+                                                                xhttp2.send(obj[key]['images'][para]);
+
+                                                                window.open(obj[key]['images'][para]);
+
+                                                                xhttp2.onreadystatechange = function () {
+                                                                    image_txt = "Now reading text in  the image: ";
+                                                                    image_txt += this.responseText;
+
+                                                                    var obj = JSON.parse(response_global);
+                                                                    console.log(obj);
+                                                                    // utterance = new SpeechSynthesisUtterance(obj);
+                                                                }
                                                             }
                                                             para_no++;
                                                         }
@@ -1150,6 +1165,7 @@ else {
                                                 }
                                             }
                                             web_st += web_content;
+                                            web_st += image_txt;
                                         } else {
                                             var response_global = ""
                                             var web_content
@@ -1179,6 +1195,7 @@ else {
                                                             var key = Object.keys(obj);
 
                                                             web_content = ""
+                                                            var image_txt = "Now reading text in  the image: ";
 
                                                             // Displays section heading and all its paragraphs
                                                             for (var key in obj) {
@@ -1188,7 +1205,20 @@ else {
                                                                         var para_no = 1;
                                                                         for (var para in obj[key]['images']) {
                                                                             if (para_no === parseInt(requestedImg)) {
-                                                                                web_content += obj[key]['images'][para] + " ";
+                                                                                var xhttp = new XMLHttpRequest();
+
+                                                                                xhttp.open("POST", "http://127.0.0.1:5000/read_img");
+                                                                                xhttp.send(obj[key]['images'][para]);
+                                                                                window.open(obj[key]['images'][para]);
+
+                                                                                xhttp2.onreadystatechange = function () {
+                                                                                    image_txt = "Now reading text in  the image: ";
+                                                                                    image_txt += this.responseText;
+                                                                                    console.log(this.responseText);
+                                                                                    var obj = JSON.parse(response_global);
+                                                                                    console.log(obj);
+                                                                                    // utterance = new SpeechSynthesisUtterance(obj);
+                                                                                }
                                                                             }
                                                                             para_no++;
                                                                         }
@@ -1202,7 +1232,8 @@ else {
                                                     };
                                                 });
                                             });
-                                            web_st += web_content
+                                            web_st += web_content;
+                                            web_st += image_txt;
                                         }
                                         // localStorage.clear();
                                         // utterance = new SpeechSynthesisUtterance(requestedInput);

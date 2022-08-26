@@ -6,6 +6,10 @@ import re
 from bs4 import NavigableString
 import json
 from urllib.parse import urlparse
+import cv2
+import os
+import pytesseract 
+import requests
 
 
 app = Flask(__name__)
@@ -191,7 +195,7 @@ def read_page():
                 # Specify url of the web page
                 source = urlopen(req).read()
                 # Make a soup 
-                soup = BeautifulSoup(source,'lxml')
+                soup = BeautifulSoup(source,'html.parser')
 
                 t = urlparse(url).netloc
                 type1 = t
@@ -335,5 +339,22 @@ def read_page():
                 #         return jsonify("Error: Cannot Read"), 200
                 # except IndexError as error:
                 #         return jsonify("Buffering"), 200
+@app.route('/read_img', methods=['POST'])
+def read_img():
+        resp_json = request.get_data()
+        url = resp_json.decode()
+        img_data = requests.get(url).content
+        img_name = 'pic.jpg'
+        with open('images\pic.jpg', 'wb') as handler:
+                handler.write(img_data)
+
+
+        pytesseract.pytesseract.tesseract_cmd= r'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
+        img_cs = cv2.imread("images\pic.jpg")
+        img_r = cv2.cvtColor(img_cs, cv2.COLOR_BGR2RGB)
+        language = pytesseract.image_to_string(img_r,lang="eng")
+        print(language)
+        result = json.dumps(language)
+        return result
     
 app.run(host='0.0.0.0', port=5000)

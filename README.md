@@ -156,3 +156,4 @@ Feel free to [open an issue](https://github.com/PunervaSingh/TriNayan/issues) on
 ## ⭐ Feature Request
 - Feel free to [open an issue](https://github.com/PunervaSingh/TriNayan/issues) on GitHub to add any additional features you feel could enhance this project.  
 
+# Trinayan_Final

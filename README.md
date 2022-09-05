@@ -118,33 +118,33 @@ pip install -r requirements.txt
 
 Contributors names and contact info :
 
-Punerva Singh(Frontend Development)<br> 
+Punerva Singh<br> 
 [@Linkedin](https://www.linkedin.com/in/punerva-singh-958305204)
 <br>
 [@Github](https://github.com/punervasingh)
 <br>
 
-Samya Jain(Backend Development)<br>
+Samya Jain<br>
 [@Linkedin](https://www.linkedin.com/in/samya-jain-a68443204)
 <br>
 [@Github](https://github.com/samya02)
 
-Jhanvee Khola(Backend Development)<br>
+Jhanvee Khola<br>
 [@Linkedin](https://www.linkedin.com/in/jhanvee-khola/)
 <br>
 [@Github](https://github.com/jhanvee-khola)
 
-Kashika Akhouri(Backend Development)<br>
+Kashika Akhouri<br>
 [@Linkedin](https://www.linkedin.com/in/kashika-akhouri-050b4a202/)
 <br>
 [@Github](https://github.com/kashika0112)
 
-Tanya Chhikara(Backend Development)<br>
+Tanya Chhikara<br>
 [@Linkedin](https://www.linkedin.com/in/tanyachhikara24/)
 <br>
 [@Github]()
 
-Khushi Punia(Backend Development)<br>
+Khushi Punia<br>
 [@Linkedin](https://www.linkedin.com/in/khushi-punia-7261b5204/)
 <br>
 [@Github](https://github.com/khushipunia21)
